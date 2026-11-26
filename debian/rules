@@ -1,0 +1,29 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	@echo "Binary is pre-built by PyInstaller — skipping build"
+
+override_dh_auto_install:
+	dh_auto_install
+	install -d debian/unifi-gateway/etc/unifi-gateway
+	install -d debian/unifi-gateway/usr/share/unifi-gateway/tools
+	python3 scripts/build-vyos-inspection.py debian/unifi-gateway/usr/share/unifi-gateway/tools/vyos-inspection.pyz
+
+override_dh_auto_clean:
+	@echo "Nothing to clean"
+
+override_dh_auto_test:
+	@echo "Skipping tests"
+
+override_dh_installsystemd:
+	dh_installsystemd --no-enable --no-start --restart-after-upgrade unifi-gateway.service
+	dh_installsystemd --name=unifi-gateway-shadow --no-enable --no-start --restart-after-upgrade
+
+override_dh_shlibdeps:
+	@echo "Skipping shlibdeps for PyInstaller binary"
+
+override_dh_strip:
+	@echo "Skipping strip for PyInstaller binary"

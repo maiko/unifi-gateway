@@ -1,0 +1,199 @@
+{
+  "create": {
+    "udapi": {
+      "version": 48,
+      "versionFormat": "v2",
+      "versionDetail": {
+        "firewall/filter": 4,
+        "firewall/mangle": 6,
+        "firewall/sets": 1
+      },
+      "firewall/mangle": [
+        {
+          "config": {
+            "enabled": true,
+            "name": "POSTROUTING",
+            "policy": "ACCEPT",
+            "logDefault": false
+          },
+          "rules": [
+            {
+              "id": 10001,
+              "enabled": true,
+              "target": "FW_QOS",
+              "log": false,
+              "negateInInterface": false,
+              "negateOutInterface": false,
+              "ipVersion": "v4only",
+              "source": {
+                "sets": [
+                  "qosrule_net4_1"
+                ]
+              },
+              "destination": {
+                "sets": [
+                  "qosrule_ip_1"
+                ]
+              },
+              "outInterface": {
+                "id": "eth0"
+              },
+              "fwQoSQueueName": "qosrule_qos_1"
+            }
+          ]
+        }
+      ],
+      "firewall/sets": [
+        {
+          "identification": {
+            "name": "qosrule_net4_1",
+            "type": "address"
+          },
+          "description": "Network addresses related to QoS Rule (short_id: 1)",
+          "entries": [
+            "192.168.110.0/24"
+          ]
+        },
+        {
+          "identification": {
+            "name": "qosrule_ip_1",
+            "type": "address"
+          },
+          "description": "IP addresses and ranges related to QoS rule (short_id: 1)",
+          "entries": [
+            "198.18.210.2"
+          ]
+        }
+      ],
+      "qos": {
+        "global": {
+          "enabled": true,
+          "connectivity": [
+            {
+              "interfaceID": "eth0"
+            }
+          ]
+        },
+        "fw": {
+          "queues": [
+            {
+              "name": "qosrule_qos_1",
+              "downloadSpeed": 8000,
+              "uploadSpeed": 3000
+            }
+          ]
+        }
+      }
+    }
+  },
+  "edit": {
+    "udapi": {
+      "version": 48,
+      "versionFormat": "v2",
+      "versionDetail": {
+        "firewall/filter": 4,
+        "firewall/mangle": 6,
+        "firewall/sets": 1
+      },
+      "firewall/mangle": [
+        {
+          "config": {
+            "enabled": true,
+            "name": "POSTROUTING",
+            "policy": "ACCEPT",
+            "logDefault": false
+          },
+          "rules": [
+            {
+              "id": 10001,
+              "enabled": true,
+              "target": "FW_QOS",
+              "log": false,
+              "negateInInterface": false,
+              "negateOutInterface": false,
+              "ipVersion": "v4only",
+              "source": {
+                "sets": [
+                  "qosrule_net4_1"
+                ]
+              },
+              "destination": {
+                "sets": [
+                  "qosrule_ip_1"
+                ]
+              },
+              "outInterface": {
+                "id": "eth0"
+              },
+              "fwQoSQueueName": "qosrule_qos_1"
+            }
+          ]
+        }
+      ],
+      "firewall/sets": [
+        {
+          "identification": {
+            "name": "qosrule_net4_1",
+            "type": "address"
+          },
+          "description": "Network addresses related to QoS Rule (short_id: 1)",
+          "entries": [
+            "192.168.110.0/24"
+          ]
+        },
+        {
+          "identification": {
+            "name": "qosrule_ip_1",
+            "type": "address"
+          },
+          "description": "IP addresses and ranges related to QoS rule (short_id: 1)",
+          "entries": [
+            "198.18.210.2"
+          ]
+        }
+      ],
+      "qos": {
+        "global": {
+          "enabled": true,
+          "connectivity": [
+            {
+              "interfaceID": "eth0"
+            }
+          ]
+        },
+        "fw": {
+          "queues": [
+            {
+              "name": "qosrule_qos_1",
+              "downloadSpeed": 8000,
+              "uploadSpeed": 5000
+            }
+          ]
+        }
+      }
+    }
+  },
+  "removed": {
+    "udapi": {
+      "version": 48,
+      "versionFormat": "v2",
+      "versionDetail": {
+        "firewall/filter": 4,
+        "firewall/mangle": 6,
+        "firewall/sets": 1
+      },
+      "firewall/mangle": [
+        {
+          "config": {
+            "enabled": true,
+            "name": "POSTROUTING",
+            "policy": "ACCEPT",
+            "logDefault": false
+          },
+          "rules": []
+        }
+      ],
+      "firewall/sets": []
+    }
+  }
+}

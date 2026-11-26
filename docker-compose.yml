@@ -1,0 +1,23 @@
+services:
+  unifi-gateway:
+    image: ghcr.io/maiko/unifi-gateway:latest
+    build: .
+    restart: unless-stopped
+    network_mode: host
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - type: bind
+        source: ./enrollment
+        target: /run/enrollment
+        read_only: true
+        bind:
+          create_host_path: false
+      - gateway-state:/var/lib/unifi-gateway
+    tmpfs:
+      - /tmp
+volumes:
+  gateway-state:

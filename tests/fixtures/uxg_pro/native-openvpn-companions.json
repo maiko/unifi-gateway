@@ -1,0 +1,978 @@
+{
+  "create": {
+    "versionDetail": {
+      "vpn/openvpn/raws": 6
+    },
+    "services": {
+      "wanFailover": {
+        "enabled": true,
+        "wanInterfaces": [
+          {
+            "interface": {
+              "id": "eth0"
+            },
+            "routingTable": 201,
+            "monitors": [
+              {
+                "id": 1,
+                "interval": 3,
+                "timePeriod": 60,
+                "target": "ping.ui.com",
+                "alert": {
+                  "lossThreshold": 50
+                }
+              },
+              {
+                "id": 2,
+                "interval": 60,
+                "timePeriod": 86400,
+                "target": "ping.ui.com"
+              }
+            ],
+            "metric": 1,
+            "weight": 50
+          },
+          {
+            "interface": "tunovpnc1",
+            "routingTable": 178,
+            "monitors": [],
+            "metric": 230,
+            "weight": 10
+          }
+        ]
+      }
+    },
+    "firewall/nat": [
+      {
+        "id": 1,
+        "chain": "POSTROUTING",
+        "target": "MASQUERADE",
+        "enabled": true,
+        "log": false,
+        "source": {
+          "sets": [
+            "!ALL_ADDRv4_eth0"
+          ]
+        },
+        "outInterface": {
+          "id": "eth0"
+        },
+        "ipVersion": "v4only",
+        "originId": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": 2,
+        "chain": "POSTROUTING",
+        "target": "MASQUERADE",
+        "enabled": true,
+        "log": false,
+        "outInterface": {
+          "id": "tunovpnc+"
+        },
+        "ipVersion": "v4only"
+      }
+    ],
+    "firewall/filter": [
+      {
+        "config": {
+          "name": "INPUT",
+          "policy": "ACCEPT",
+          "logDefault": false
+        },
+        "rules": [
+          {
+            "id": 30000,
+            "target": "WAN_LOCAL",
+            "description": "WAN_LOCAL jump (interface: eth0)",
+            "log": false,
+            "inInterface": {
+              "id": "eth0"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000002"
+          },
+          {
+            "id": 30001,
+            "target": "LAN_LOCAL",
+            "description": "LAN_LOCAL jump (interface: br0)",
+            "log": false,
+            "inInterface": {
+              "id": "br0"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000003"
+          },
+          {
+            "id": 30002,
+            "target": "LAN_LOCAL",
+            "description": "LAN_LOCAL jump (interface: br110)",
+            "log": false,
+            "inInterface": {
+              "id": "br110"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000004"
+          },
+          {
+            "id": 30003,
+            "target": "LAN_LOCAL",
+            "description": "LAN_LOCAL jump (interface: br120)",
+            "log": false,
+            "inInterface": {
+              "id": "br120"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000005"
+          },
+          {
+            "id": 30004,
+            "target": "WAN_LOCAL",
+            "negateInInterface": false,
+            "negateOutInterface": false,
+            "description": "Forward OPENVPN_CLIENT traffic to WAN_LOCAL",
+            "log": false,
+            "protocol": "all",
+            "connectionState": [],
+            "inInterface": {
+              "id": "tunovpnc+"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000006"
+          }
+        ]
+      },
+      {
+        "config": {
+          "name": "UNRELATED_1"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "UNRELATED_2"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "UNRELATED_3"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "UNRELATED_4"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "UNRELATED_5"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "OUTPUT",
+          "policy": "ACCEPT",
+          "logDefault": false
+        },
+        "rules": [
+          {
+            "id": 30000,
+            "target": "LOCAL_WAN",
+            "description": "LOCAL_WAN jump (interface: eth0)",
+            "log": false,
+            "outInterface": {
+              "id": "eth0"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000007"
+          },
+          {
+            "id": 30001,
+            "target": "LOCAL_LAN",
+            "description": "LOCAL_LAN jump (interface: br0)",
+            "log": false,
+            "outInterface": {
+              "id": "br0"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000008"
+          },
+          {
+            "id": 30002,
+            "target": "LOCAL_LAN",
+            "description": "LOCAL_LAN jump (interface: br110)",
+            "log": false,
+            "outInterface": {
+              "id": "br110"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000009"
+          },
+          {
+            "id": 30003,
+            "target": "LOCAL_LAN",
+            "description": "LOCAL_LAN jump (interface: br120)",
+            "log": false,
+            "outInterface": {
+              "id": "br120"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-00000000000a"
+          },
+          {
+            "id": 30004,
+            "target": "LOCAL_WAN",
+            "negateInInterface": false,
+            "negateOutInterface": false,
+            "description": "Forward OPENVPN_CLIENT traffic to LOCAL_WAN",
+            "log": false,
+            "protocol": "all",
+            "connectionState": [],
+            "outInterface": {
+              "id": "tunovpnc+"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-00000000000b"
+          }
+        ]
+      },
+      {
+        "config": {
+          "name": "UNRELATED_7"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "UNRELATED_8"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "UNRELATED_9"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "UNRELATED_10"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "UNRELATED_11"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "UNRELATED_12"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "FORWARD_IN",
+          "logDefault": false
+        },
+        "rules": [
+          {
+            "id": 30000,
+            "target": "WAN_IN",
+            "description": "WAN_IN jump (interface: eth0)",
+            "log": false,
+            "inInterface": {
+              "id": "eth0"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-00000000000c"
+          },
+          {
+            "id": 30001,
+            "target": "WAN_IN",
+            "description": "WAN_IN client jump (interface: tunovpnc1)",
+            "log": false,
+            "inInterface": {
+              "id": "tunovpnc1"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-00000000000d"
+          },
+          {
+            "id": 30002,
+            "target": "LAN_IN",
+            "description": "LAN_IN jump (interface: br0)",
+            "log": false,
+            "inInterface": {
+              "id": "br0"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-00000000000e"
+          },
+          {
+            "id": 30003,
+            "target": "LAN_IN",
+            "description": "LAN_IN jump (interface: br110)",
+            "log": false,
+            "inInterface": {
+              "id": "br110"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-00000000000f"
+          },
+          {
+            "id": 30004,
+            "target": "LAN_IN",
+            "description": "LAN_IN jump (interface: br120)",
+            "log": false,
+            "inInterface": {
+              "id": "br120"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000010"
+          }
+        ]
+      }
+    ],
+    "vpn/openvpn/raws": [
+      {
+        "id": "1",
+        "enabled": true
+      }
+    ]
+  },
+  "edit": {
+    "versionDetail": {
+      "vpn/openvpn/raws": 6
+    },
+    "services": {
+      "wanFailover": {
+        "enabled": true,
+        "wanInterfaces": [
+          {
+            "interface": {
+              "id": "eth0"
+            },
+            "routingTable": 201,
+            "monitors": [
+              {
+                "id": 1,
+                "interval": 3,
+                "timePeriod": 60,
+                "target": "ping.ui.com",
+                "alert": {
+                  "lossThreshold": 50
+                }
+              },
+              {
+                "id": 2,
+                "interval": 60,
+                "timePeriod": 86400,
+                "target": "ping.ui.com"
+              }
+            ],
+            "metric": 1,
+            "weight": 50
+          },
+          {
+            "interface": "tunovpnc1",
+            "routingTable": 178,
+            "monitors": [],
+            "metric": 230,
+            "weight": 10
+          }
+        ]
+      }
+    },
+    "firewall/nat": [
+      {
+        "id": 1,
+        "chain": "POSTROUTING",
+        "target": "MASQUERADE",
+        "enabled": true,
+        "log": false,
+        "source": {
+          "sets": [
+            "!ALL_ADDRv4_eth0"
+          ]
+        },
+        "outInterface": {
+          "id": "eth0"
+        },
+        "ipVersion": "v4only",
+        "originId": "00000000-0000-4000-8000-000000000001"
+      },
+      {
+        "id": 2,
+        "chain": "POSTROUTING",
+        "target": "MASQUERADE",
+        "enabled": true,
+        "log": false,
+        "outInterface": {
+          "id": "tunovpnc+"
+        },
+        "ipVersion": "v4only"
+      }
+    ],
+    "firewall/filter": [
+      {
+        "config": {
+          "name": "INPUT",
+          "policy": "ACCEPT",
+          "logDefault": false
+        },
+        "rules": [
+          {
+            "id": 30000,
+            "target": "WAN_LOCAL",
+            "description": "WAN_LOCAL jump (interface: eth0)",
+            "log": false,
+            "inInterface": {
+              "id": "eth0"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000002"
+          },
+          {
+            "id": 30001,
+            "target": "LAN_LOCAL",
+            "description": "LAN_LOCAL jump (interface: br0)",
+            "log": false,
+            "inInterface": {
+              "id": "br0"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000003"
+          },
+          {
+            "id": 30002,
+            "target": "LAN_LOCAL",
+            "description": "LAN_LOCAL jump (interface: br110)",
+            "log": false,
+            "inInterface": {
+              "id": "br110"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000004"
+          },
+          {
+            "id": 30003,
+            "target": "LAN_LOCAL",
+            "description": "LAN_LOCAL jump (interface: br120)",
+            "log": false,
+            "inInterface": {
+              "id": "br120"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000005"
+          },
+          {
+            "id": 30004,
+            "target": "WAN_LOCAL",
+            "negateInInterface": false,
+            "negateOutInterface": false,
+            "description": "Forward OPENVPN_CLIENT traffic to WAN_LOCAL",
+            "log": false,
+            "protocol": "all",
+            "connectionState": [],
+            "inInterface": {
+              "id": "tunovpnc+"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000006"
+          }
+        ]
+      },
+      {
+        "config": {
+          "name": "UNRELATED_1"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "UNRELATED_2"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "UNRELATED_3"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "UNRELATED_4"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "UNRELATED_5"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "OUTPUT",
+          "policy": "ACCEPT",
+          "logDefault": false
+        },
+        "rules": [
+          {
+            "id": 30000,
+            "target": "LOCAL_WAN",
+            "description": "LOCAL_WAN jump (interface: eth0)",
+            "log": false,
+            "outInterface": {
+              "id": "eth0"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000007"
+          },
+          {
+            "id": 30001,
+            "target": "LOCAL_LAN",
+            "description": "LOCAL_LAN jump (interface: br0)",
+            "log": false,
+            "outInterface": {
+              "id": "br0"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000008"
+          },
+          {
+            "id": 30002,
+            "target": "LOCAL_LAN",
+            "description": "LOCAL_LAN jump (interface: br110)",
+            "log": false,
+            "outInterface": {
+              "id": "br110"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000009"
+          },
+          {
+            "id": 30003,
+            "target": "LOCAL_LAN",
+            "description": "LOCAL_LAN jump (interface: br120)",
+            "log": false,
+            "outInterface": {
+              "id": "br120"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-00000000000a"
+          },
+          {
+            "id": 30004,
+            "target": "LOCAL_WAN",
+            "negateInInterface": false,
+            "negateOutInterface": false,
+            "description": "Forward OPENVPN_CLIENT traffic to LOCAL_WAN",
+            "log": false,
+            "protocol": "all",
+            "connectionState": [],
+            "outInterface": {
+              "id": "tunovpnc+"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-00000000000b"
+          }
+        ]
+      },
+      {
+        "config": {
+          "name": "UNRELATED_7"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "UNRELATED_8"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "UNRELATED_9"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "UNRELATED_10"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "UNRELATED_11"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "UNRELATED_12"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "FORWARD_IN",
+          "logDefault": false
+        },
+        "rules": [
+          {
+            "id": 30000,
+            "target": "WAN_IN",
+            "description": "WAN_IN jump (interface: eth0)",
+            "log": false,
+            "inInterface": {
+              "id": "eth0"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-00000000000c"
+          },
+          {
+            "id": 30001,
+            "target": "WAN_IN",
+            "description": "WAN_IN client jump (interface: tunovpnc1)",
+            "log": false,
+            "inInterface": {
+              "id": "tunovpnc1"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-00000000000d"
+          },
+          {
+            "id": 30002,
+            "target": "LAN_IN",
+            "description": "LAN_IN jump (interface: br0)",
+            "log": false,
+            "inInterface": {
+              "id": "br0"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-00000000000e"
+          },
+          {
+            "id": 30003,
+            "target": "LAN_IN",
+            "description": "LAN_IN jump (interface: br110)",
+            "log": false,
+            "inInterface": {
+              "id": "br110"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-00000000000f"
+          },
+          {
+            "id": 30004,
+            "target": "LAN_IN",
+            "description": "LAN_IN jump (interface: br120)",
+            "log": false,
+            "inInterface": {
+              "id": "br120"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000010"
+          }
+        ]
+      }
+    ],
+    "vpn/openvpn/raws": [
+      {
+        "id": "1",
+        "enabled": true
+      }
+    ]
+  },
+  "delete": {
+    "versionDetail": {
+      "vpn/openvpn/raws": 6
+    },
+    "services": {
+      "wanFailover": {
+        "enabled": true,
+        "wanInterfaces": [
+          {
+            "interface": {
+              "id": "eth0"
+            },
+            "routingTable": 201,
+            "monitors": [
+              {
+                "id": 1,
+                "interval": 3,
+                "timePeriod": 60,
+                "target": "ping.ui.com",
+                "alert": {
+                  "lossThreshold": 50
+                }
+              },
+              {
+                "id": 2,
+                "interval": 60,
+                "timePeriod": 86400,
+                "target": "ping.ui.com"
+              }
+            ],
+            "metric": 1,
+            "weight": 50
+          }
+        ]
+      }
+    },
+    "firewall/nat": [
+      {
+        "id": 1,
+        "chain": "POSTROUTING",
+        "target": "MASQUERADE",
+        "enabled": true,
+        "log": false,
+        "source": {
+          "sets": [
+            "!ALL_ADDRv4_eth0"
+          ]
+        },
+        "outInterface": {
+          "id": "eth0"
+        },
+        "ipVersion": "v4only",
+        "originId": "00000000-0000-4000-8000-000000000001"
+      }
+    ],
+    "firewall/filter": [
+      {
+        "config": {
+          "name": "INPUT",
+          "policy": "ACCEPT",
+          "logDefault": false
+        },
+        "rules": [
+          {
+            "id": 30000,
+            "target": "WAN_LOCAL",
+            "description": "WAN_LOCAL jump (interface: eth0)",
+            "log": false,
+            "inInterface": {
+              "id": "eth0"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000002"
+          },
+          {
+            "id": 30001,
+            "target": "LAN_LOCAL",
+            "description": "LAN_LOCAL jump (interface: br0)",
+            "log": false,
+            "inInterface": {
+              "id": "br0"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000003"
+          },
+          {
+            "id": 30002,
+            "target": "LAN_LOCAL",
+            "description": "LAN_LOCAL jump (interface: br110)",
+            "log": false,
+            "inInterface": {
+              "id": "br110"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000004"
+          },
+          {
+            "id": 30003,
+            "target": "LAN_LOCAL",
+            "description": "LAN_LOCAL jump (interface: br120)",
+            "log": false,
+            "inInterface": {
+              "id": "br120"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000005"
+          }
+        ]
+      },
+      {
+        "config": {
+          "name": "UNRELATED_1"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "UNRELATED_2"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "UNRELATED_3"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "UNRELATED_4"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "UNRELATED_5"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "OUTPUT",
+          "policy": "ACCEPT",
+          "logDefault": false
+        },
+        "rules": [
+          {
+            "id": 30000,
+            "target": "LOCAL_WAN",
+            "description": "LOCAL_WAN jump (interface: eth0)",
+            "log": false,
+            "outInterface": {
+              "id": "eth0"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000007"
+          },
+          {
+            "id": 30001,
+            "target": "LOCAL_LAN",
+            "description": "LOCAL_LAN jump (interface: br0)",
+            "log": false,
+            "outInterface": {
+              "id": "br0"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000008"
+          },
+          {
+            "id": 30002,
+            "target": "LOCAL_LAN",
+            "description": "LOCAL_LAN jump (interface: br110)",
+            "log": false,
+            "outInterface": {
+              "id": "br110"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000009"
+          },
+          {
+            "id": 30003,
+            "target": "LOCAL_LAN",
+            "description": "LOCAL_LAN jump (interface: br120)",
+            "log": false,
+            "outInterface": {
+              "id": "br120"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-00000000000a"
+          }
+        ]
+      },
+      {
+        "config": {
+          "name": "UNRELATED_7"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "UNRELATED_8"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "UNRELATED_9"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "UNRELATED_10"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "UNRELATED_11"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "UNRELATED_12"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "FORWARD_IN",
+          "logDefault": false
+        },
+        "rules": [
+          {
+            "id": 30000,
+            "target": "WAN_IN",
+            "description": "WAN_IN jump (interface: eth0)",
+            "log": false,
+            "inInterface": {
+              "id": "eth0"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-00000000000c"
+          },
+          {
+            "id": 30001,
+            "target": "LAN_IN",
+            "description": "LAN_IN jump (interface: br0)",
+            "log": false,
+            "inInterface": {
+              "id": "br0"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-00000000000e"
+          },
+          {
+            "id": 30002,
+            "target": "LAN_IN",
+            "description": "LAN_IN jump (interface: br110)",
+            "log": false,
+            "inInterface": {
+              "id": "br110"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-00000000000f"
+          },
+          {
+            "id": 30003,
+            "target": "LAN_IN",
+            "description": "LAN_IN jump (interface: br120)",
+            "log": false,
+            "inInterface": {
+              "id": "br120"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000010"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "network_build": "11.0.104-37279-1",
+  "scope": "Native setparam snapshots reduced to the complete LAN_LAN chain and its referenced sets",
+  "snapshots": {
+    "baseline": {
+      "cfgversion": "48da0782a7fb7091",
+      "system_cfg": "{\"udapi\":{\"version\":48,\"versionFormat\":\"v2\",\"versionDetail\":{\"firewall/filter\":4,\"firewall/mangle\":6,\"firewall/sets\":1,\"firewall/settings\":1,\"interfaces\":8},\"firewall/filter\":[{\"config\":{\"name\":\"LAN_LAN\",\"logDefault\":false},\"rules\":[{\"id\":2147483647,\"target\":\"ACCEPT\",\"description\":\"[LAN_LAN]Allow All Traffic\",\"log\":false,\"ipVersion\":\"both\",\"originId\":\"11111111-1111-4111-8111-000000000001\"}]}],\"firewall/sets\":[]}}"
+    },
+    "created": {
+      "cfgversion": "b7d6ff3d6a65964b",
+      "system_cfg": "{\"udapi\":{\"version\":48,\"versionFormat\":\"v2\",\"versionDetail\":{\"firewall/filter\":4,\"firewall/mangle\":6,\"firewall/sets\":1,\"firewall/settings\":1,\"interfaces\":8},\"firewall/filter\":[{\"config\":{\"name\":\"LAN_LAN\",\"logDefault\":false},\"rules\":[{\"id\":10000,\"target\":\"DROP\",\"description\":\"VyOS lab inter-VLAN deny\",\"log\":true,\"protocol\":\"tcp\",\"source\":{\"sets\":[\"policy_src_ip_1\"]},\"destination\":{\"sets\":[\"policy_dst_ip_1\",\"policy_dst_port_1\"]},\"connectionState\":[],\"ipVersion\":\"v4only\"},{\"id\":2147483647,\"target\":\"ACCEPT\",\"description\":\"[LAN_LAN]Allow All Traffic\",\"log\":false,\"ipVersion\":\"both\",\"originId\":\"11111111-1111-4111-8111-000000000001\"}]}],\"firewall/sets\":[{\"identification\":{\"name\":\"policy_src_ip_1\",\"type\":\"address\"},\"description\":\"IP addresses and ranges related to policy(short_id: 1) ip source\",\"entries\":[\"192.0.2.0/24\"]},{\"identification\":{\"name\":\"policy_dst_ip_1\",\"type\":\"address\"},\"description\":\"IP addresses and ranges related to policy(short_id: 1) ip destination\",\"entries\":[\"198.51.100.0/24\"]},{\"identification\":{\"name\":\"policy_dst_port_1\",\"type\":\"port\"},\"description\":\"Ports related to policy(short_id: 1)\",\"entries\":[\"8443\"]}]}}"
+    },
+    "edited": {
+      "cfgversion": "4421b07d1a327665",
+      "system_cfg": "{\"udapi\":{\"version\":48,\"versionFormat\":\"v2\",\"versionDetail\":{\"firewall/filter\":4,\"firewall/mangle\":6,\"firewall/sets\":1,\"firewall/settings\":1,\"interfaces\":8},\"firewall/filter\":[{\"config\":{\"name\":\"LAN_LAN\",\"logDefault\":false},\"rules\":[{\"id\":10000,\"target\":\"DROP\",\"description\":\"VyOS lab inter-VLAN deny\",\"log\":true,\"protocol\":\"tcp\",\"source\":{\"sets\":[\"policy_src_ip_1\"]},\"destination\":{\"sets\":[\"policy_dst_ip_1\",\"policy_dst_port_1\"]},\"connectionState\":[],\"ipVersion\":\"v4only\"},{\"id\":2147483647,\"target\":\"ACCEPT\",\"description\":\"[LAN_LAN]Allow All Traffic\",\"log\":false,\"ipVersion\":\"both\",\"originId\":\"11111111-1111-4111-8111-000000000001\"}]}],\"firewall/sets\":[{\"identification\":{\"name\":\"policy_src_ip_1\",\"type\":\"address\"},\"description\":\"IP addresses and ranges related to policy(short_id: 1) ip source\",\"entries\":[\"192.0.2.0/24\"]},{\"identification\":{\"name\":\"policy_dst_ip_1\",\"type\":\"address\"},\"description\":\"IP addresses and ranges related to policy(short_id: 1) ip destination\",\"entries\":[\"198.51.100.0/24\"]},{\"identification\":{\"name\":\"policy_dst_port_1\",\"type\":\"port\"},\"description\":\"Ports related to policy(short_id: 1)\",\"entries\":[\"8444\"]}]}}"
+    },
+    "deleted": {
+      "cfgversion": "68a2d1177608c71c",
+      "system_cfg": "{\"udapi\":{\"version\":48,\"versionFormat\":\"v2\",\"versionDetail\":{\"firewall/filter\":4,\"firewall/mangle\":6,\"firewall/sets\":1,\"firewall/settings\":1,\"interfaces\":8},\"firewall/filter\":[{\"config\":{\"name\":\"LAN_LAN\",\"logDefault\":false},\"rules\":[{\"id\":2147483647,\"target\":\"ACCEPT\",\"description\":\"[LAN_LAN]Allow All Traffic\",\"log\":false,\"ipVersion\":\"both\",\"originId\":\"11111111-1111-4111-8111-000000000001\"}]}],\"firewall/sets\":[]}}"
+    }
+  }
+}

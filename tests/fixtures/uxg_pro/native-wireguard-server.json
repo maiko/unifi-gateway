@@ -1,0 +1,44 @@
+{
+  "udapi": {
+    "version": 48,
+    "versionFormat": "v2",
+    "versionDetail": {
+      "firewall/filter": 4,
+      "firewall/mangle": 6,
+      "firewall/nat": 7,
+      "firewall/sets": 1,
+      "firewall/settings": 1,
+      "interfaces": 8,
+      "services/dnsForwarder": 4,
+      "vpn/wireguard/servers": 6
+    },
+    "interfaces": [
+      {
+        "identification": {"id": "eth0", "type": "ethernet"},
+        "addresses": [{"type": "static", "cidr": "198.18.210.1/30", "version": "v4"}]
+      },
+      {
+        "identification": {"id": "eth2", "type": "ethernet"},
+        "addresses": [{"type": "static", "cidr": "198.18.220.1/30", "version": "v4"}]
+      }
+    ],
+    "vpn/wireguard/servers": [
+      {
+        "id": "1",
+        "enabled": true,
+        "name": "Lab WireGuard",
+        "address": {"source": "interface", "id": "eth0", "ipVersion": "v4"},
+        "port": 51820,
+        "privateKey": "<synthetic-server-key>",
+        "interfaceIPs": ["172.29.91.1/24"],
+        "remotePeers": [
+          {
+            "publicKey": "<synthetic-peer-key>",
+            "allowedIPs": ["172.29.91.2/32"],
+            "name": "Lab peer"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "version": 48,
+  "versionFormat": "v2",
+  "versionDetail": {
+    "firewall/filter": 4,
+    "firewall/mangle": 6,
+    "firewall/nat": 7,
+    "firewall/sets": 1,
+    "firewall/settings": 1,
+    "interfaces": 8,
+    "services/dnsForwarder": 4
+  },
+  "forwarder": {
+    "enabled": true,
+    "forwardBehavior": "allServers",
+    "listenInterfaces": [{"id": "br0"}, {"id": "br120"}, {"id": "br110"}]
+  },
+  "unmanaged": [
+    {
+      "hostName": "router.home.arpa",
+      "registerNonQualified": true,
+      "address": {"address": "192.0.2.1", "version": "v4"}
+    },
+    {
+      "hostName": "probe.other-uxg-lab.test",
+      "registerNonQualified": true,
+      "address": {"address": "192.0.2.2", "version": "v4"}
+    }
+  ],
+  "records": {
+    "create": [
+      {
+        "hostName": "probe.uxg-lab.test",
+        "address": {"address": "192.0.2.42", "origin": null, "version": "v4"},
+        "ttl": 300,
+        "registerNonQualified": false
+      }
+    ],
+    "edit": [
+      {
+        "hostName": "probe.uxg-lab.test",
+        "address": {"address": "198.51.100.42", "origin": null, "version": "v4"},
+        "ttl": 450,
+        "registerNonQualified": false
+      }
+    ],
+    "aaaa": [
+      {
+        "hostName": "probe.uxg-lab.test",
+        "address": {"address": "198.51.100.42", "origin": null, "version": "v4"},
+        "ttl": 450,
+        "registerNonQualified": false
+      },
+      {
+        "hostName": "probe-v6.uxg-lab.test",
+        "address": {"address": "2001:db8::42", "origin": null, "version": "v6"},
+        "ttl": 360,
+        "registerNonQualified": false
+      }
+    ],
+    "delete": [],
+    "dhcp-discovery": [
+      {
+        "hostName": "unifi.localdomain",
+        "registerNonQualified": true,
+        "address": {"address": "192.0.2.53", "version": "v4"}
+      },
+      {
+        "hostName": "unifi.uxg-lab.test",
+        "registerNonQualified": false,
+        "address": {"address": "192.0.2.53", "version": "v4"}
+      }
+    ]
+  }
+}

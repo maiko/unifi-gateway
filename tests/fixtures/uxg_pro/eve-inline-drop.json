@@ -1,0 +1,30 @@
+{
+  "event_type": "alert",
+  "timestamp": "2026-11-24T14:23:58.130493+0000",
+  "flow_id": 1962814806659724,
+  "tx_id": 0,
+  "src_ip": "192.168.110.2",
+  "src_port": 40748,
+  "dest_ip": "192.168.120.2",
+  "dest_port": 18443,
+  "proto": "TCP",
+  "alert": {
+    "gid": 1,
+    "signature_id": 1000001,
+    "rev": 1,
+    "signature": "UXG isolated broker test marker",
+    "severity": 3,
+    "category": "",
+    "action": "blocked"
+  },
+  "verdict": {
+    "action": "drop"
+  },
+  "flow": {
+    "start": "2026-11-24T14:23:58.129323+0000",
+    "bytes_toclient": 60,
+    "bytes_toserver": 1019,
+    "pkts_toclient": 1,
+    "pkts_toserver": 8
+  }
+}

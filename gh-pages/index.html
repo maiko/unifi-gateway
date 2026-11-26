@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UniFi Gateway for VyOS</title>
+  <style>
+    :root {
+      --bg: #0f1419;
+      --surface: #1a2029;
+      --border: #2d3640;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --accent: #58a6ff;
+      --accent-hover: #79b8ff;
+      --code-bg: #161b22;
+      --green: #3fb950;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 2rem 1rem;
+    }
+    .container { max-width: 800px; margin: 0 auto; }
+    header { text-align: center; margin-bottom: 3rem; }
+    header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    header p { color: var(--muted); font-size: 1.1rem; }
+    header .links { margin-top: 1rem; }
+    header .links a {
+      color: var(--accent);
+      text-decoration: none;
+      margin: 0 0.75rem;
+    }
+    header .links a:hover { color: var(--accent-hover); text-decoration: underline; }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .card h2 {
+      font-size: 1.15rem;
+      margin-bottom: 0.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem;
+      overflow-x: auto;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      position: relative;
+    }
+    code { font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>UniFi Gateway for VyOS</h1>
+      <p>VyOS integration for self-hosted UniFi Network</p>
+      <div class="links">
+        <a href="https://github.com/maiko/unifi-gateway">Source</a>
+        <a href="https://github.com/maiko/unifi-gateway/blob/HEAD/README.md#enrollment">Enrollment</a>
+        <a href="https://github.com/maiko/unifi-gateway/blob/HEAD/docs/coverage.md">Feature coverage</a>
+      </div>
+    </header>
+    <div class="card">
+      <h2>Install from source</h2>
+      <pre><code>git clone https://github.com/maiko/unifi-gateway.git
+cd unifi-gateway
+python3 -m venv venv
+. venv/bin/activate
+python -m pip install -r requirements.txt</code></pre>
+    </div>
+  </div>
+</body>
+</html>

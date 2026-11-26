@@ -1,0 +1,58 @@
+{
+  "vyosVersion": "2026.11.22-0018-rolling",
+  "retrievePath": [
+    "container",
+    "name",
+    "uxg-mdns-reflector"
+  ],
+  "retrieveData": {
+    "allow-host-networks": {},
+    "cpu-quota": "0.25",
+    "environment": {
+      "UXG_MDNS_FILTERS": {
+        "value": "_amazonecho-remote._tcp.local,_amzn-wplay._tcp.local,_canon-bjnp1._tcp.local,_fax-ipp._tcp.local,_hap._tcp.local,_hap._udp.local,_homekit._tcp.local,_http._tcp.local,_http_alt._tcp.local,_ica-networking._tcp.local,_ica-networking2._tcp.local,_ipp-tls._tcp.local,_ipp._tcp.local,_ipps._tcp.local,_ippusb._tcp.local,_matter._tcp.local,_matter_gateway._tcp.local,_matterc._udp.local,_matterd._udp.local,_pdl-datastream._tcp.local,_printer._tcp.local,_ptp._tcp.local,_riousbprint._tcp.local,_scan-target._tcp.local,_scanner._tcp.local,_uscan._tcp.local,_uscans._tcp.local,_workstation._tcp.local"
+      },
+      "UXG_MDNS_INTERFACES": {
+        "value": "eth3.110,eth3.120"
+      },
+      "UXG_MDNS_MODE": {
+        "value": "specific"
+      }
+    },
+    "gid": "65532",
+    "image": "localhost/uxg-mdns-reflector:lan13-lab2",
+    "label": {
+      "unifi.gateway.mdns-config": {
+        "value": "0dd2f3ef37e918e00704aa6b32f950ec449574b5e24176b053c37565cb17d86a"
+      }
+    },
+    "memory": "64",
+    "uid": "65532"
+  },
+  "showPath": [
+    "container",
+    "json"
+  ],
+  "showDataType": "str",
+  "showRows": [
+    {
+      "names": [
+        "uxg-mdns-reflector"
+      ],
+      "state": "running",
+      "image": "localhost/uxg-mdns-reflector:lan13-lab2",
+      "image_id": "23062d3965d43aa6b08ce3fda0655abf6b930f2f72efb6bb8d4561f35fac288a",
+      "pid": 6609,
+      "networks": [],
+      "mounts": [],
+      "ports": null,
+      "restarts": 0,
+      "started_at": 1795633769,
+      "labels": {
+        "podman_systemd_unit": "vyos-container-uxg-mdns-reflector.service",
+        "io_buildah_version": "1.33.7",
+        "unifi_gateway_mdns_config": "0dd2f3ef37e918e00704aa6b32f950ec449574b5e24176b053c37565cb17d86a"
+      }
+    }
+  ]
+}

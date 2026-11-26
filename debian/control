@@ -1,0 +1,15 @@
+Source: unifi-gateway
+Section: net
+Priority: optional
+Maintainer: Maiko Bossuyt <maiko@users.noreply.github.com>
+Build-Depends: debhelper-compat (= 13), python3
+Standards-Version: 4.6.0
+Homepage: https://github.com/maiko/unifi-gateway
+
+Package: unifi-gateway
+Architecture: any
+Depends: ${misc:Depends}
+Recommends: libnss-systemd, openssh-client, python3
+Description: VyOS gateway integration for UniFi Network
+ Manage supported VyOS settings and report live router state through UniFi
+ Network using the Gateway Enterprise device profile.

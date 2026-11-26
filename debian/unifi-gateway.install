@@ -1,0 +1,16 @@
+dist/unifi-gateway usr/bin
+conf/uxg-enterprise.sample.conf usr/share/unifi-gateway/examples
+conf/vyos-shadow-ssh.conf usr/share/unifi-gateway/examples
+conf/vyos-inspection-ssh.conf usr/share/unifi-gateway/examples
+conf/vyos-wan-ssh.conf usr/share/unifi-gateway/examples
+conf/vyos-restart-ssh.conf usr/share/unifi-gateway/examples
+conf/vyos-routing-ssh.conf usr/share/unifi-gateway/examples
+scripts/vyos-https-bootstrap.py usr/share/unifi-gateway/tools
+scripts/vyos-inspection-ssh-bootstrap.py usr/share/unifi-gateway/tools
+scripts/vyos-restart-preflight.vbash usr/share/unifi-gateway/tools
+scripts/vyos-shadow-policy-eligible.py usr/share/unifi-gateway/tools
+scripts/vyos-shadow-peer.py usr/share/unifi-gateway/tools
+scripts/run-shadow-pair.sh usr/share/unifi-gateway/tools
+scripts/vyos-routing-observer.py usr/share/unifi-gateway/tools
+scripts/vyos-qos-observer.py usr/share/unifi-gateway/tools
+backends/vyos_wan_ping.py usr/share/unifi-gateway/tools

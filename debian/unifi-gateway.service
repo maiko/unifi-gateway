@@ -1,0 +1,31 @@
+[Unit]
+Description=VyOS UXG Enterprise bridge for UniFi Network
+Wants=network-online.target
+After=network-online.target
+AssertPathExists=/etc/unifi-gateway/uxg-enterprise.conf
+AssertPathExists=/etc/unifi-gateway/uxg-enterprise.vyos-ca.pem
+AssertPathExists=/etc/unifi-gateway/uxg-enterprise.vyos-api-key
+
+[Service]
+Type=simple
+DynamicUser=yes
+StateDirectory=unifi-gateway
+StateDirectoryMode=0700
+UMask=0077
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+NoNewPrivileges=yes
+CapabilityBoundingSet=
+LoadCredential=site.conf:/etc/unifi-gateway/uxg-enterprise.conf
+LoadCredential=vyos-ca.pem:/etc/unifi-gateway/uxg-enterprise.vyos-ca.pem
+LoadCredential=vyos-api-key:/etc/unifi-gateway/uxg-enterprise.vyos-api-key
+Environment=UNIFI_GW_CONFIG=%S/unifi-gateway/gateway.conf
+Environment=UNIFI_GW_SITE_CONFIG=%d/site.conf
+Environment=UNIFI_GW_LOG_LEVEL=INFO
+ExecStart=/usr/bin/unifi-gateway run
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

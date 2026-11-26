@@ -1,0 +1,1576 @@
+{
+    "expected": {
+        "udapi": {
+            "version": 48,
+            "versionFormat": "v2",
+            "interfaces": [
+                {
+                    "identification": {
+                        "id": "lo",
+                        "type": "loopback"
+                    },
+                    "status": {
+                        "enabled": true,
+                        "mtu": 65536
+                    },
+                    "addresses": [
+                        {
+                            "type": "static",
+                            "cidr": "127.0.0.1/8",
+                            "version": "v4"
+                        }
+                    ]
+                },
+                {
+                    "identification": {
+                        "id": "eth0",
+                        "type": "ethernet"
+                    },
+                    "status": {
+                        "enabled": true,
+                        "comment": "WAN",
+                        "baseReachableTime": 30
+                    },
+                    "addresses": [
+                        {
+                            "type": "static",
+                            "cidr": "198.18.210.1/30",
+                            "version": "v4"
+                        }
+                    ],
+                    "ethernet": {
+                        "lldp": {
+                            "enabled": false
+                        }
+                    }
+                },
+                {
+                    "identification": {
+                        "id": "eth1",
+                        "type": "ethernet"
+                    },
+                    "status": {
+                        "enabled": true
+                    }
+                },
+                {
+                    "identification": {
+                        "id": "eth1.120",
+                        "type": "vlan"
+                    },
+                    "status": {
+                        "enabled": true
+                    },
+                    "vlan": {
+                        "id": 120,
+                        "interface": {
+                            "id": "eth1"
+                        }
+                    }
+                },
+                {
+                    "identification": {
+                        "id": "eth1.110",
+                        "type": "vlan"
+                    },
+                    "status": {
+                        "enabled": true
+                    },
+                    "vlan": {
+                        "id": 110,
+                        "interface": {
+                            "id": "eth1"
+                        }
+                    }
+                },
+                {
+                    "identification": {
+                        "id": "eth2",
+                        "type": "ethernet"
+                    },
+                    "status": {
+                        "enabled": true
+                    }
+                },
+                {
+                    "identification": {
+                        "id": "eth2.120",
+                        "type": "vlan"
+                    },
+                    "status": {
+                        "enabled": true
+                    },
+                    "vlan": {
+                        "id": 120,
+                        "interface": {
+                            "id": "eth2"
+                        }
+                    }
+                },
+                {
+                    "identification": {
+                        "id": "eth2.110",
+                        "type": "vlan"
+                    },
+                    "status": {
+                        "enabled": true
+                    },
+                    "vlan": {
+                        "id": 110,
+                        "interface": {
+                            "id": "eth2"
+                        }
+                    }
+                },
+                {
+                    "identification": {
+                        "id": "eth3",
+                        "type": "ethernet"
+                    },
+                    "status": {
+                        "enabled": true
+                    }
+                },
+                {
+                    "identification": {
+                        "id": "eth3.120",
+                        "type": "vlan"
+                    },
+                    "status": {
+                        "enabled": true
+                    },
+                    "vlan": {
+                        "id": 120,
+                        "interface": {
+                            "id": "eth3"
+                        }
+                    }
+                },
+                {
+                    "identification": {
+                        "id": "eth3.110",
+                        "type": "vlan"
+                    },
+                    "status": {
+                        "enabled": true
+                    },
+                    "vlan": {
+                        "id": 110,
+                        "interface": {
+                            "id": "eth3"
+                        }
+                    }
+                },
+                {
+                    "identification": {
+                        "id": "br0",
+                        "type": "bridge"
+                    },
+                    "status": {
+                        "enabled": true,
+                        "comment": "LAN"
+                    },
+                    "addresses": [
+                        {
+                            "type": "static",
+                            "cidr": "192.168.1.1/24",
+                            "version": "v4"
+                        }
+                    ],
+                    "bridge": {
+                        "interfaces": [
+                            {
+                                "id": "eth1"
+                            },
+                            {
+                                "id": "eth2"
+                            },
+                            {
+                                "id": "eth3"
+                            }
+                        ],
+                        "id": 0
+                    }
+                },
+                {
+                    "identification": {
+                        "id": "br120",
+                        "type": "bridge"
+                    },
+                    "status": {
+                        "enabled": true,
+                        "comment": "LAN"
+                    },
+                    "addresses": [
+                        {
+                            "type": "static",
+                            "cidr": "192.168.120.1/24",
+                            "version": "v4"
+                        }
+                    ],
+                    "bridge": {
+                        "interfaces": [
+                            {
+                                "id": "eth1.120"
+                            },
+                            {
+                                "id": "eth2.120"
+                            },
+                            {
+                                "id": "eth3.120"
+                            }
+                        ],
+                        "id": 120
+                    }
+                },
+                {
+                    "identification": {
+                        "id": "br110",
+                        "type": "bridge"
+                    },
+                    "status": {
+                        "enabled": true,
+                        "comment": "LAN"
+                    },
+                    "addresses": [
+                        {
+                            "type": "static",
+                            "cidr": "192.168.110.1/24",
+                            "version": "v4"
+                        }
+                    ],
+                    "bridge": {
+                        "interfaces": [
+                            {
+                                "id": "eth1.110"
+                            },
+                            {
+                                "id": "eth2.110"
+                            },
+                            {
+                                "id": "eth3.110"
+                            }
+                        ],
+                        "id": 110
+                    }
+                }
+            ],
+            "routes/static": [],
+            "firewall/nat": [
+                {
+                    "id": 1,
+                    "chain": "POSTROUTING",
+                    "target": "MASQUERADE",
+                    "enabled": true,
+                    "log": false,
+                    "source": {
+                        "sets": [
+                            "!ALL_ADDRv4_eth0"
+                        ]
+                    },
+                    "outInterface": {
+                        "id": "eth0"
+                    },
+                    "ipVersion": "v4only",
+                    "originId": "55555555-5555-4555-9555-000000000000"
+                }
+            ],
+            "versionDetail": {},
+            "services": {
+                "wanFailover": {
+                    "enabled": true,
+                    "wanInterfaces": [
+                        {
+                            "interface": {
+                                "id": "eth0"
+                            },
+                            "routingTable": 201,
+                            "monitors": [
+                                {
+                                    "id": 1,
+                                    "interval": 3,
+                                    "timePeriod": 60,
+                                    "target": "ping.ui.com",
+                                    "alert": {
+                                        "lossThreshold": 50
+                                    }
+                                },
+                                {
+                                    "id": 2,
+                                    "interval": 60,
+                                    "timePeriod": 86400,
+                                    "target": "ping.ui.com"
+                                }
+                            ],
+                            "metric": 1,
+                            "weight": 50
+                        }
+                    ]
+                }
+            },
+            "system": {
+                "defaultGateway": [
+                    {
+                        "type": "static",
+                        "address": "198.18.210.2",
+                        "version": "v4"
+                    }
+                ]
+            },
+            "firewall/filter": [
+                {
+                    "config": {
+                        "name": "INPUT",
+                        "policy": "ACCEPT",
+                        "logDefault": false
+                    },
+                    "rules": [
+                        {
+                            "id": 30000,
+                            "target": "WAN_LOCAL",
+                            "description": "WAN_LOCAL jump (interface: eth0)",
+                            "log": false,
+                            "inInterface": {
+                                "id": "eth0"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-000000000001"
+                        },
+                        {
+                            "id": 30001,
+                            "target": "LAN_LOCAL",
+                            "description": "LAN_LOCAL jump (interface: br0)",
+                            "log": false,
+                            "inInterface": {
+                                "id": "br0"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-000000000002"
+                        },
+                        {
+                            "id": 30002,
+                            "target": "LAN_LOCAL",
+                            "description": "LAN_LOCAL jump (interface: br110)",
+                            "log": false,
+                            "inInterface": {
+                                "id": "br110"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-000000000003"
+                        },
+                        {
+                            "id": 30003,
+                            "target": "LAN_LOCAL",
+                            "description": "LAN_LOCAL jump (interface: br120)",
+                            "log": false,
+                            "inInterface": {
+                                "id": "br120"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-000000000004"
+                        }
+                    ]
+                },
+                {
+                    "config": {
+                        "name": "OUTPUT",
+                        "policy": "ACCEPT",
+                        "logDefault": false
+                    },
+                    "rules": [
+                        {
+                            "id": 30000,
+                            "target": "LOCAL_WAN",
+                            "description": "LOCAL_WAN jump (interface: eth0)",
+                            "log": false,
+                            "outInterface": {
+                                "id": "eth0"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-000000000005"
+                        },
+                        {
+                            "id": 30001,
+                            "target": "LOCAL_LAN",
+                            "description": "LOCAL_LAN jump (interface: br0)",
+                            "log": false,
+                            "outInterface": {
+                                "id": "br0"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-000000000006"
+                        },
+                        {
+                            "id": 30002,
+                            "target": "LOCAL_LAN",
+                            "description": "LOCAL_LAN jump (interface: br110)",
+                            "log": false,
+                            "outInterface": {
+                                "id": "br110"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-000000000007"
+                        },
+                        {
+                            "id": 30003,
+                            "target": "LOCAL_LAN",
+                            "description": "LOCAL_LAN jump (interface: br120)",
+                            "log": false,
+                            "outInterface": {
+                                "id": "br120"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-000000000008"
+                        }
+                    ]
+                },
+                {
+                    "config": {
+                        "name": "FORWARD_IN",
+                        "logDefault": false
+                    },
+                    "rules": [
+                        {
+                            "id": 30000,
+                            "target": "WAN_IN",
+                            "description": "WAN_IN jump (interface: eth0)",
+                            "log": false,
+                            "inInterface": {
+                                "id": "eth0"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-000000000009"
+                        },
+                        {
+                            "id": 30001,
+                            "target": "LAN_IN",
+                            "description": "LAN_IN jump (interface: br0)",
+                            "log": false,
+                            "inInterface": {
+                                "id": "br0"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-00000000000a"
+                        },
+                        {
+                            "id": 30002,
+                            "target": "LAN_IN",
+                            "description": "LAN_IN jump (interface: br110)",
+                            "log": false,
+                            "inInterface": {
+                                "id": "br110"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-00000000000b"
+                        },
+                        {
+                            "id": 30003,
+                            "target": "LAN_IN",
+                            "description": "LAN_IN jump (interface: br120)",
+                            "log": false,
+                            "inInterface": {
+                                "id": "br120"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-00000000000c"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "observed": {
+        "udapi": {
+            "version": 48,
+            "versionFormat": "v2",
+            "interfaces": [
+                {
+                    "identification": {
+                        "id": "lo",
+                        "type": "loopback"
+                    },
+                    "status": {
+                        "enabled": true,
+                        "mtu": 65536
+                    },
+                    "addresses": [
+                        {
+                            "type": "static",
+                            "cidr": "127.0.0.1/8",
+                            "version": "v4"
+                        }
+                    ]
+                },
+                {
+                    "identification": {
+                        "id": "eth2",
+                        "type": "ethernet"
+                    },
+                    "status": {
+                        "enabled": true,
+                        "comment": "WAN2",
+                        "baseReachableTime": 30
+                    },
+                    "addresses": [
+                        {
+                            "type": "static",
+                            "cidr": "198.18.220.1/30",
+                            "version": "v4"
+                        }
+                    ],
+                    "ethernet": {
+                        "lldp": {
+                            "enabled": false
+                        }
+                    }
+                },
+                {
+                    "identification": {
+                        "id": "eth0",
+                        "type": "ethernet"
+                    },
+                    "status": {
+                        "enabled": true,
+                        "comment": "WAN",
+                        "baseReachableTime": 30
+                    },
+                    "addresses": [
+                        {
+                            "type": "static",
+                            "cidr": "198.18.210.1/30",
+                            "version": "v4"
+                        }
+                    ],
+                    "ethernet": {
+                        "lldp": {
+                            "enabled": false
+                        }
+                    }
+                },
+                {
+                    "identification": {
+                        "id": "eth1",
+                        "type": "ethernet"
+                    },
+                    "status": {
+                        "enabled": true
+                    }
+                },
+                {
+                    "identification": {
+                        "id": "eth1.120",
+                        "type": "vlan"
+                    },
+                    "status": {
+                        "enabled": true
+                    },
+                    "vlan": {
+                        "id": 120,
+                        "interface": {
+                            "id": "eth1"
+                        }
+                    }
+                },
+                {
+                    "identification": {
+                        "id": "eth1.110",
+                        "type": "vlan"
+                    },
+                    "status": {
+                        "enabled": true
+                    },
+                    "vlan": {
+                        "id": 110,
+                        "interface": {
+                            "id": "eth1"
+                        }
+                    }
+                },
+                {
+                    "identification": {
+                        "id": "eth3",
+                        "type": "ethernet"
+                    },
+                    "status": {
+                        "enabled": true
+                    }
+                },
+                {
+                    "identification": {
+                        "id": "eth3.120",
+                        "type": "vlan"
+                    },
+                    "status": {
+                        "enabled": true
+                    },
+                    "vlan": {
+                        "id": 120,
+                        "interface": {
+                            "id": "eth3"
+                        }
+                    }
+                },
+                {
+                    "identification": {
+                        "id": "eth3.110",
+                        "type": "vlan"
+                    },
+                    "status": {
+                        "enabled": true
+                    },
+                    "vlan": {
+                        "id": 110,
+                        "interface": {
+                            "id": "eth3"
+                        }
+                    }
+                },
+                {
+                    "identification": {
+                        "id": "br0",
+                        "type": "bridge"
+                    },
+                    "status": {
+                        "enabled": true,
+                        "comment": "LAN"
+                    },
+                    "addresses": [
+                        {
+                            "type": "static",
+                            "cidr": "192.168.1.1/24",
+                            "version": "v4"
+                        }
+                    ],
+                    "bridge": {
+                        "interfaces": [
+                            {
+                                "id": "eth1"
+                            },
+                            {
+                                "id": "eth3"
+                            }
+                        ],
+                        "id": 0
+                    }
+                },
+                {
+                    "identification": {
+                        "id": "br120",
+                        "type": "bridge"
+                    },
+                    "status": {
+                        "enabled": true,
+                        "comment": "LAN"
+                    },
+                    "addresses": [
+                        {
+                            "type": "static",
+                            "cidr": "192.168.120.1/24",
+                            "version": "v4"
+                        }
+                    ],
+                    "bridge": {
+                        "interfaces": [
+                            {
+                                "id": "eth1.120"
+                            },
+                            {
+                                "id": "eth3.120"
+                            }
+                        ],
+                        "id": 120
+                    }
+                },
+                {
+                    "identification": {
+                        "id": "br110",
+                        "type": "bridge"
+                    },
+                    "status": {
+                        "enabled": true,
+                        "comment": "LAN"
+                    },
+                    "addresses": [
+                        {
+                            "type": "static",
+                            "cidr": "192.168.110.1/24",
+                            "version": "v4"
+                        }
+                    ],
+                    "bridge": {
+                        "interfaces": [
+                            {
+                                "id": "eth1.110"
+                            },
+                            {
+                                "id": "eth3.110"
+                            }
+                        ],
+                        "id": 110
+                    }
+                }
+            ],
+            "routes/static": [
+                {
+                    "enabled": true,
+                    "type": "gateway",
+                    "destination": "0.0.0.0/0",
+                    "distance": 1,
+                    "table": 202,
+                    "description": "WAN_DEFAULT_GATEWAY:55555555-5555-4555-9555-00000000000d",
+                    "gateway": "198.18.220.2"
+                },
+                {
+                    "enabled": true,
+                    "type": "gateway",
+                    "destination": "0.0.0.0/0",
+                    "distance": 1,
+                    "table": 201,
+                    "description": "WAN_DEFAULT_GATEWAY:55555555-5555-4555-9555-00000000000e",
+                    "gateway": "198.18.210.2"
+                }
+            ],
+            "firewall/nat": [
+                {
+                    "id": 1,
+                    "chain": "POSTROUTING",
+                    "target": "MASQUERADE",
+                    "enabled": true,
+                    "log": false,
+                    "source": {
+                        "sets": [
+                            "!ALL_ADDRv4_eth2"
+                        ]
+                    },
+                    "outInterface": {
+                        "id": "eth2"
+                    },
+                    "ipVersion": "v4only",
+                    "originId": "55555555-5555-4555-9555-00000000000f"
+                },
+                {
+                    "id": 2,
+                    "chain": "POSTROUTING",
+                    "target": "MASQUERADE",
+                    "enabled": true,
+                    "log": false,
+                    "source": {
+                        "sets": [
+                            "!ALL_ADDRv4_eth0"
+                        ]
+                    },
+                    "outInterface": {
+                        "id": "eth0"
+                    },
+                    "ipVersion": "v4only",
+                    "originId": "55555555-5555-4555-9555-000000000000"
+                }
+            ],
+            "versionDetail": {
+                "services/wanFailover": 11
+            },
+            "services": {
+                "wanFailover": {
+                    "enabled": true,
+                    "wanInterfaces": [
+                        {
+                            "interface": {
+                                "id": "eth2"
+                            },
+                            "routingTable": 202,
+                            "monitors": [
+                                {
+                                    "id": 1,
+                                    "interval": 3,
+                                    "timePeriod": 7,
+                                    "target": "198.18.220.2",
+                                    "alert": {
+                                        "lossThreshold": 99
+                                    },
+                                    "type": "icmp"
+                                },
+                                {
+                                    "id": 2,
+                                    "interval": 60,
+                                    "timePeriod": 86400,
+                                    "target": "ping.ui.com"
+                                }
+                            ],
+                            "metric": 2,
+                            "monitorHealthThreshold": 1,
+                            "weight": 50
+                        },
+                        {
+                            "interface": {
+                                "id": "eth0"
+                            },
+                            "routingTable": 201,
+                            "monitors": [
+                                {
+                                    "id": 3,
+                                    "interval": 3,
+                                    "timePeriod": 7,
+                                    "target": "198.18.210.2",
+                                    "alert": {
+                                        "lossThreshold": 99
+                                    },
+                                    "type": "icmp"
+                                },
+                                {
+                                    "id": 4,
+                                    "interval": 60,
+                                    "timePeriod": 86400,
+                                    "target": "ping.ui.com"
+                                }
+                            ],
+                            "metric": 1,
+                            "monitorHealthThreshold": 1,
+                            "weight": 50
+                        }
+                    ]
+                }
+            },
+            "system": {},
+            "firewall/filter": [
+                {
+                    "config": {
+                        "name": "INPUT",
+                        "policy": "ACCEPT",
+                        "logDefault": false
+                    },
+                    "rules": [
+                        {
+                            "id": 30000,
+                            "target": "WAN_LOCAL",
+                            "description": "WAN_LOCAL jump (interface: eth2)",
+                            "log": false,
+                            "inInterface": {
+                                "id": "eth2"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-000000000010"
+                        },
+                        {
+                            "id": 30001,
+                            "target": "WAN_LOCAL",
+                            "description": "WAN_LOCAL jump (interface: eth0)",
+                            "log": false,
+                            "inInterface": {
+                                "id": "eth0"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-000000000001"
+                        },
+                        {
+                            "id": 30002,
+                            "target": "LAN_LOCAL",
+                            "description": "LAN_LOCAL jump (interface: br0)",
+                            "log": false,
+                            "inInterface": {
+                                "id": "br0"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-000000000002"
+                        },
+                        {
+                            "id": 30003,
+                            "target": "LAN_LOCAL",
+                            "description": "LAN_LOCAL jump (interface: br110)",
+                            "log": false,
+                            "inInterface": {
+                                "id": "br110"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-000000000003"
+                        },
+                        {
+                            "id": 30004,
+                            "target": "LAN_LOCAL",
+                            "description": "LAN_LOCAL jump (interface: br120)",
+                            "log": false,
+                            "inInterface": {
+                                "id": "br120"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-000000000004"
+                        }
+                    ]
+                },
+                {
+                    "config": {
+                        "name": "OUTPUT",
+                        "policy": "ACCEPT",
+                        "logDefault": false
+                    },
+                    "rules": [
+                        {
+                            "id": 30000,
+                            "target": "LOCAL_WAN",
+                            "description": "LOCAL_WAN jump (interface: eth2)",
+                            "log": false,
+                            "outInterface": {
+                                "id": "eth2"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-000000000011"
+                        },
+                        {
+                            "id": 30001,
+                            "target": "LOCAL_WAN",
+                            "description": "LOCAL_WAN jump (interface: eth0)",
+                            "log": false,
+                            "outInterface": {
+                                "id": "eth0"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-000000000005"
+                        },
+                        {
+                            "id": 30002,
+                            "target": "LOCAL_LAN",
+                            "description": "LOCAL_LAN jump (interface: br0)",
+                            "log": false,
+                            "outInterface": {
+                                "id": "br0"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-000000000006"
+                        },
+                        {
+                            "id": 30003,
+                            "target": "LOCAL_LAN",
+                            "description": "LOCAL_LAN jump (interface: br110)",
+                            "log": false,
+                            "outInterface": {
+                                "id": "br110"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-000000000007"
+                        },
+                        {
+                            "id": 30004,
+                            "target": "LOCAL_LAN",
+                            "description": "LOCAL_LAN jump (interface: br120)",
+                            "log": false,
+                            "outInterface": {
+                                "id": "br120"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-000000000008"
+                        }
+                    ]
+                },
+                {
+                    "config": {
+                        "name": "FORWARD_IN",
+                        "logDefault": false
+                    },
+                    "rules": [
+                        {
+                            "id": 30000,
+                            "target": "WAN_IN",
+                            "description": "WAN_IN jump (interface: eth2)",
+                            "log": false,
+                            "inInterface": {
+                                "id": "eth2"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-000000000012"
+                        },
+                        {
+                            "id": 30001,
+                            "target": "WAN_IN",
+                            "description": "WAN_IN jump (interface: eth0)",
+                            "log": false,
+                            "inInterface": {
+                                "id": "eth0"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-000000000009"
+                        },
+                        {
+                            "id": 30002,
+                            "target": "LAN_IN",
+                            "description": "LAN_IN jump (interface: br0)",
+                            "log": false,
+                            "inInterface": {
+                                "id": "br0"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-00000000000a"
+                        },
+                        {
+                            "id": 30003,
+                            "target": "LAN_IN",
+                            "description": "LAN_IN jump (interface: br110)",
+                            "log": false,
+                            "inInterface": {
+                                "id": "br110"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-00000000000b"
+                        },
+                        {
+                            "id": 30004,
+                            "target": "LAN_IN",
+                            "description": "LAN_IN jump (interface: br120)",
+                            "log": false,
+                            "inInterface": {
+                                "id": "br120"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-00000000000c"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "wan1-first": {
+        "udapi": {
+            "version": 48,
+            "versionFormat": "v2",
+            "interfaces": [
+                {
+                    "identification": {
+                        "id": "lo",
+                        "type": "loopback"
+                    },
+                    "status": {
+                        "enabled": true,
+                        "mtu": 65536
+                    },
+                    "addresses": [
+                        {
+                            "type": "static",
+                            "cidr": "127.0.0.1/8",
+                            "version": "v4"
+                        }
+                    ]
+                },
+                {
+                    "identification": {
+                        "id": "eth0",
+                        "type": "ethernet"
+                    },
+                    "status": {
+                        "enabled": true,
+                        "comment": "WAN",
+                        "baseReachableTime": 30
+                    },
+                    "addresses": [
+                        {
+                            "type": "static",
+                            "cidr": "198.18.210.1/30",
+                            "version": "v4"
+                        }
+                    ],
+                    "ethernet": {
+                        "lldp": {
+                            "enabled": false
+                        }
+                    }
+                },
+                {
+                    "identification": {
+                        "id": "eth2",
+                        "type": "ethernet"
+                    },
+                    "status": {
+                        "enabled": true,
+                        "comment": "WAN2",
+                        "baseReachableTime": 30
+                    },
+                    "addresses": [
+                        {
+                            "type": "static",
+                            "cidr": "198.18.220.1/30",
+                            "version": "v4"
+                        }
+                    ],
+                    "ethernet": {
+                        "lldp": {
+                            "enabled": false
+                        }
+                    }
+                },
+                {
+                    "identification": {
+                        "id": "eth1",
+                        "type": "ethernet"
+                    },
+                    "status": {
+                        "enabled": true
+                    }
+                },
+                {
+                    "identification": {
+                        "id": "eth1.120",
+                        "type": "vlan"
+                    },
+                    "status": {
+                        "enabled": true
+                    },
+                    "vlan": {
+                        "id": 120,
+                        "interface": {
+                            "id": "eth1"
+                        }
+                    }
+                },
+                {
+                    "identification": {
+                        "id": "eth1.110",
+                        "type": "vlan"
+                    },
+                    "status": {
+                        "enabled": true
+                    },
+                    "vlan": {
+                        "id": 110,
+                        "interface": {
+                            "id": "eth1"
+                        }
+                    }
+                },
+                {
+                    "identification": {
+                        "id": "eth3",
+                        "type": "ethernet"
+                    },
+                    "status": {
+                        "enabled": true
+                    }
+                },
+                {
+                    "identification": {
+                        "id": "eth3.120",
+                        "type": "vlan"
+                    },
+                    "status": {
+                        "enabled": true
+                    },
+                    "vlan": {
+                        "id": 120,
+                        "interface": {
+                            "id": "eth3"
+                        }
+                    }
+                },
+                {
+                    "identification": {
+                        "id": "eth3.110",
+                        "type": "vlan"
+                    },
+                    "status": {
+                        "enabled": true
+                    },
+                    "vlan": {
+                        "id": 110,
+                        "interface": {
+                            "id": "eth3"
+                        }
+                    }
+                },
+                {
+                    "identification": {
+                        "id": "br0",
+                        "type": "bridge"
+                    },
+                    "status": {
+                        "enabled": true,
+                        "comment": "LAN"
+                    },
+                    "addresses": [
+                        {
+                            "type": "static",
+                            "cidr": "192.168.1.1/24",
+                            "version": "v4"
+                        }
+                    ],
+                    "bridge": {
+                        "interfaces": [
+                            {
+                                "id": "eth1"
+                            },
+                            {
+                                "id": "eth3"
+                            }
+                        ],
+                        "id": 0
+                    }
+                },
+                {
+                    "identification": {
+                        "id": "br120",
+                        "type": "bridge"
+                    },
+                    "status": {
+                        "enabled": true,
+                        "comment": "LAN"
+                    },
+                    "addresses": [
+                        {
+                            "type": "static",
+                            "cidr": "192.168.120.1/24",
+                            "version": "v4"
+                        }
+                    ],
+                    "bridge": {
+                        "interfaces": [
+                            {
+                                "id": "eth1.120"
+                            },
+                            {
+                                "id": "eth3.120"
+                            }
+                        ],
+                        "id": 120
+                    }
+                },
+                {
+                    "identification": {
+                        "id": "br110",
+                        "type": "bridge"
+                    },
+                    "status": {
+                        "enabled": true,
+                        "comment": "LAN"
+                    },
+                    "addresses": [
+                        {
+                            "type": "static",
+                            "cidr": "192.168.110.1/24",
+                            "version": "v4"
+                        }
+                    ],
+                    "bridge": {
+                        "interfaces": [
+                            {
+                                "id": "eth1.110"
+                            },
+                            {
+                                "id": "eth3.110"
+                            }
+                        ],
+                        "id": 110
+                    }
+                }
+            ],
+            "routes/static": [
+                {
+                    "enabled": true,
+                    "type": "gateway",
+                    "destination": "0.0.0.0/0",
+                    "distance": 1,
+                    "table": 201,
+                    "description": "WAN_DEFAULT_GATEWAY:55555555-5555-4555-9555-00000000000e",
+                    "gateway": "198.18.210.2"
+                },
+                {
+                    "enabled": true,
+                    "type": "gateway",
+                    "destination": "0.0.0.0/0",
+                    "distance": 1,
+                    "table": 202,
+                    "description": "WAN_DEFAULT_GATEWAY:55555555-5555-4555-9555-000000000013",
+                    "gateway": "198.18.220.2"
+                }
+            ],
+            "firewall/nat": [
+                {
+                    "id": 1,
+                    "chain": "POSTROUTING",
+                    "target": "MASQUERADE",
+                    "enabled": true,
+                    "log": false,
+                    "source": {
+                        "sets": [
+                            "!ALL_ADDRv4_eth0"
+                        ]
+                    },
+                    "outInterface": {
+                        "id": "eth0"
+                    },
+                    "ipVersion": "v4only",
+                    "originId": "55555555-5555-4555-9555-000000000000"
+                },
+                {
+                    "id": 2,
+                    "chain": "POSTROUTING",
+                    "target": "MASQUERADE",
+                    "enabled": true,
+                    "log": false,
+                    "source": {
+                        "sets": [
+                            "!ALL_ADDRv4_eth2"
+                        ]
+                    },
+                    "outInterface": {
+                        "id": "eth2"
+                    },
+                    "ipVersion": "v4only",
+                    "originId": "55555555-5555-4555-9555-000000000014"
+                }
+            ],
+            "versionDetail": {
+                "services/wanFailover": 11
+            },
+            "services": {
+                "wanFailover": {
+                    "enabled": true,
+                    "wanInterfaces": [
+                        {
+                            "interface": {
+                                "id": "eth0"
+                            },
+                            "routingTable": 201,
+                            "monitors": [
+                                {
+                                    "id": 1,
+                                    "interval": 3,
+                                    "timePeriod": 7,
+                                    "target": "198.18.210.2",
+                                    "alert": {
+                                        "lossThreshold": 99
+                                    },
+                                    "type": "icmp"
+                                },
+                                {
+                                    "id": 2,
+                                    "interval": 60,
+                                    "timePeriod": 86400,
+                                    "target": "ping.ui.com"
+                                }
+                            ],
+                            "metric": 1,
+                            "monitorHealthThreshold": 1,
+                            "weight": 50
+                        },
+                        {
+                            "interface": {
+                                "id": "eth2"
+                            },
+                            "routingTable": 202,
+                            "monitors": [
+                                {
+                                    "id": 3,
+                                    "interval": 3,
+                                    "timePeriod": 7,
+                                    "target": "198.18.220.2",
+                                    "alert": {
+                                        "lossThreshold": 99
+                                    },
+                                    "type": "icmp"
+                                },
+                                {
+                                    "id": 4,
+                                    "interval": 60,
+                                    "timePeriod": 86400,
+                                    "target": "ping.ui.com"
+                                }
+                            ],
+                            "metric": 2,
+                            "monitorHealthThreshold": 1,
+                            "weight": 50
+                        }
+                    ]
+                }
+            },
+            "system": {},
+            "firewall/filter": [
+                {
+                    "config": {
+                        "name": "INPUT",
+                        "policy": "ACCEPT",
+                        "logDefault": false
+                    },
+                    "rules": [
+                        {
+                            "id": 30000,
+                            "target": "WAN_LOCAL",
+                            "description": "WAN_LOCAL jump (interface: eth0)",
+                            "log": false,
+                            "inInterface": {
+                                "id": "eth0"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-000000000001"
+                        },
+                        {
+                            "id": 30001,
+                            "target": "WAN_LOCAL",
+                            "description": "WAN_LOCAL jump (interface: eth2)",
+                            "log": false,
+                            "inInterface": {
+                                "id": "eth2"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-000000000015"
+                        },
+                        {
+                            "id": 30002,
+                            "target": "LAN_LOCAL",
+                            "description": "LAN_LOCAL jump (interface: br0)",
+                            "log": false,
+                            "inInterface": {
+                                "id": "br0"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-000000000002"
+                        },
+                        {
+                            "id": 30003,
+                            "target": "LAN_LOCAL",
+                            "description": "LAN_LOCAL jump (interface: br110)",
+                            "log": false,
+                            "inInterface": {
+                                "id": "br110"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-000000000003"
+                        },
+                        {
+                            "id": 30004,
+                            "target": "LAN_LOCAL",
+                            "description": "LAN_LOCAL jump (interface: br120)",
+                            "log": false,
+                            "inInterface": {
+                                "id": "br120"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-000000000004"
+                        }
+                    ]
+                },
+                {
+                    "config": {
+                        "name": "OUTPUT",
+                        "policy": "ACCEPT",
+                        "logDefault": false
+                    },
+                    "rules": [
+                        {
+                            "id": 30000,
+                            "target": "LOCAL_WAN",
+                            "description": "LOCAL_WAN jump (interface: eth0)",
+                            "log": false,
+                            "outInterface": {
+                                "id": "eth0"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-000000000005"
+                        },
+                        {
+                            "id": 30001,
+                            "target": "LOCAL_WAN",
+                            "description": "LOCAL_WAN jump (interface: eth2)",
+                            "log": false,
+                            "outInterface": {
+                                "id": "eth2"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-000000000016"
+                        },
+                        {
+                            "id": 30002,
+                            "target": "LOCAL_LAN",
+                            "description": "LOCAL_LAN jump (interface: br0)",
+                            "log": false,
+                            "outInterface": {
+                                "id": "br0"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-000000000006"
+                        },
+                        {
+                            "id": 30003,
+                            "target": "LOCAL_LAN",
+                            "description": "LOCAL_LAN jump (interface: br110)",
+                            "log": false,
+                            "outInterface": {
+                                "id": "br110"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-000000000007"
+                        },
+                        {
+                            "id": 30004,
+                            "target": "LOCAL_LAN",
+                            "description": "LOCAL_LAN jump (interface: br120)",
+                            "log": false,
+                            "outInterface": {
+                                "id": "br120"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-000000000008"
+                        }
+                    ]
+                },
+                {
+                    "config": {
+                        "name": "FORWARD_IN",
+                        "logDefault": false
+                    },
+                    "rules": [
+                        {
+                            "id": 30000,
+                            "target": "WAN_IN",
+                            "description": "WAN_IN jump (interface: eth0)",
+                            "log": false,
+                            "inInterface": {
+                                "id": "eth0"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-000000000009"
+                        },
+                        {
+                            "id": 30001,
+                            "target": "WAN_IN",
+                            "description": "WAN_IN jump (interface: eth2)",
+                            "log": false,
+                            "inInterface": {
+                                "id": "eth2"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-000000000017"
+                        },
+                        {
+                            "id": 30002,
+                            "target": "LAN_IN",
+                            "description": "LAN_IN jump (interface: br0)",
+                            "log": false,
+                            "inInterface": {
+                                "id": "br0"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-00000000000a"
+                        },
+                        {
+                            "id": 30003,
+                            "target": "LAN_IN",
+                            "description": "LAN_IN jump (interface: br110)",
+                            "log": false,
+                            "inInterface": {
+                                "id": "br110"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-00000000000b"
+                        },
+                        {
+                            "id": 30004,
+                            "target": "LAN_IN",
+                            "description": "LAN_IN jump (interface: br120)",
+                            "log": false,
+                            "inInterface": {
+                                "id": "br120"
+                            },
+                            "ipVersion": "both",
+                            "originId": "55555555-5555-4555-9555-00000000000c"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

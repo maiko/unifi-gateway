@@ -1,0 +1,350 @@
+{
+  "network_build": "11.0.104-37279-1",
+  "scope": "Decoded firewall excerpt of the initial controller provisioning snapshot",
+  "cfgversion": "0000000000000000",
+  "system_cfg_decoded_excerpt": {
+    "udapi": {
+      "version": 1,
+      "firewall/nat": [],
+      "firewall/filter": [
+        {
+          "config": {
+            "name": "INPUT",
+            "policy": "ACCEPT",
+            "logDefault": false
+          },
+          "rules": [
+            {
+              "id": 30001,
+              "target": "LAN_LOCAL",
+              "description": "LAN_LOCAL jump (interface: br0)",
+              "inInterface": {
+                "id": "br0"
+              },
+              "ipVersion": "both"
+            }
+          ]
+        },
+        {
+          "config": {
+            "name": "FORWARD",
+            "policy": "ACCEPT",
+            "logDefault": false
+          },
+          "rules": [
+            {
+              "id": 30001,
+              "target": "FORWARD_IN",
+              "description": "FORWARD_IN jump",
+              "ipVersion": "both"
+            },
+            {
+              "id": 30002,
+              "target": "FORWARD_OUT",
+              "description": "FORWARD_OUT jump",
+              "ipVersion": "both"
+            }
+          ]
+        },
+        {
+          "config": {
+            "name": "OUTPUT",
+            "policy": "ACCEPT",
+            "logDefault": false
+          }
+        },
+        {
+          "config": {
+            "name": "FORWARD_IN",
+            "logDefault": false
+          },
+          "rules": [
+            {
+              "id": 30001,
+              "target": "LAN_IN",
+              "description": "LAN_IN jump (interface: br0)",
+              "inInterface": {
+                "id": "br0"
+              },
+              "ipVersion": "both"
+            }
+          ]
+        },
+        {
+          "config": {
+            "name": "FORWARD_OUT",
+            "logDefault": false
+          },
+          "rules": [
+            {
+              "id": 30001,
+              "target": "LAN_OUT",
+              "description": "LAN_OUT jump (interface: br0)",
+              "outInterface": {
+                "id": "br0"
+              },
+              "ipVersion": "both"
+            }
+          ]
+        },
+        {
+          "config": {
+            "name": "LAN_LOCAL",
+            "logDefault": false
+          },
+          "rules": [
+            {
+              "id": 2147483646,
+              "target": "RETURN",
+              "log": false,
+              "ipVersion": "v6only"
+            },
+            {
+              "id": 2147483647,
+              "target": "RETURN",
+              "log": false,
+              "ipVersion": "v4only"
+            }
+          ]
+        },
+        {
+          "config": {
+            "name": "LAN_IN",
+            "logDefault": false
+          },
+          "rules": [
+            {
+              "id": 60001,
+              "target": "RETURN",
+              "description": "[LAN_IN]Allow Network 192.0.2.0/24 Traffic",
+              "source": {
+                "address": "192.0.2.0/24"
+              },
+              "ipVersion": "v4only"
+            },
+            {
+              "id": 2147483646,
+              "target": "RETURN",
+              "log": false,
+              "ipVersion": "v6only"
+            },
+            {
+              "id": 2147483647,
+              "target": "RETURN",
+              "log": false,
+              "ipVersion": "v4only"
+            }
+          ]
+        },
+        {
+          "config": {
+            "name": "LAN_OUT",
+            "logDefault": false
+          },
+          "rules": [
+            {
+              "id": 60001,
+              "target": "RETURN",
+              "description": "[LAN_OUT]Allow Network 192.0.2.0/24 Traffic",
+              "destination": {
+                "address": "192.0.2.0/24"
+              },
+              "ipVersion": "v4only"
+            },
+            {
+              "id": 60002,
+              "target": "RETURN",
+              "description": "[LANv6_OUT]Allow Virtual Network Traffic",
+              "destination": {
+                "sets": [
+                  "corporate_networkv6"
+                ]
+              },
+              "ipVersion": "v6only"
+            },
+            {
+              "id": 2147483646,
+              "target": "RETURN",
+              "log": false,
+              "ipVersion": "v6only"
+            },
+            {
+              "id": 2147483647,
+              "target": "RETURN",
+              "log": false,
+              "ipVersion": "v4only"
+            }
+          ]
+        }
+      ],
+      "firewall/sets": [
+        {
+          "identification": {
+            "name": "unifi_controller_addresse",
+            "type": "address"
+          },
+          "description": "UniFi addresses"
+        },
+        {
+          "identification": {
+            "name": "guest_network",
+            "type": "address"
+          },
+          "description": "guest subnets"
+        },
+        {
+          "identification": {
+            "name": "guest_networkv6",
+            "type": "address"
+          },
+          "description": "IPv6 guest subnets"
+        },
+        {
+          "identification": {
+            "name": "corporate_network",
+            "type": "address"
+          },
+          "description": "corporate subnets",
+          "entries": [
+            "192.0.2.0/24"
+          ]
+        },
+        {
+          "identification": {
+            "name": "corporate_networkv6",
+            "type": "address"
+          },
+          "description": "IPv6 corporate subnets"
+        },
+        {
+          "identification": {
+            "name": "local_network",
+            "type": "address"
+          },
+          "description": "local subnets (corporate + guest)",
+          "entries": [
+            "192.0.2.0/24"
+          ]
+        },
+        {
+          "identification": {
+            "name": "local_networkv6",
+            "type": "address"
+          },
+          "description": "IPv6 local subnets (corporate + guest)"
+        },
+        {
+          "identification": {
+            "name": "remote_user_vpn_network",
+            "type": "address"
+          },
+          "description": "Remote User VPN subnets"
+        },
+        {
+          "identification": {
+            "name": "remote_client_vpn_network",
+            "type": "address"
+          },
+          "description": "remote client VPN subnets"
+        },
+        {
+          "identification": {
+            "name": "remote_site_vpn_network",
+            "type": "address"
+          },
+          "description": "remote site VPN subnets"
+        },
+        {
+          "identification": {
+            "name": "guest_allow_dns_servers",
+            "type": "address"
+          },
+          "description": "allow dns servers for guests"
+        },
+        {
+          "identification": {
+            "name": "captive_portal_subnets",
+            "type": "address"
+          },
+          "description": "captive portal subnets"
+        },
+        {
+          "identification": {
+            "name": "guest_portal_address",
+            "type": "address"
+          },
+          "description": "guest portal address",
+          "entries": [
+            "198.51.100.2"
+          ]
+        },
+        {
+          "identification": {
+            "name": "guest_portal_ports",
+            "type": "port"
+          },
+          "description": "guest portal ports",
+          "entries": [
+            "8880",
+            "8843"
+          ]
+        },
+        {
+          "identification": {
+            "name": "guest_portal_redirector_p",
+            "type": "port"
+          },
+          "description": "guest portal redirector ports",
+          "entries": [
+            "39080",
+            "39443"
+          ]
+        },
+        {
+          "identification": {
+            "name": "unifi_controller_ports-tc",
+            "type": "port"
+          },
+          "description": "unifi tcp ports",
+          "entries": [
+            "8080"
+          ]
+        },
+        {
+          "identification": {
+            "name": "unifi_controller_ports-ud",
+            "type": "port"
+          },
+          "description": "unifi udp ports",
+          "entries": [
+            "3478"
+          ]
+        }
+      ],
+      "firewall/settings": {
+        "conntrackModules": {
+          "sip": false,
+          "ftp": true,
+          "gre": true,
+          "h323": true,
+          "pptp": true,
+          "tftp": true
+        },
+        "conntrackTimeouts": {
+          "icmp": 30,
+          "other": 600,
+          "tcpClose": 10,
+          "tcpCloseWait": 60,
+          "tcpEstablished": 7440,
+          "tcpFinWait": 120,
+          "tcpLastAck": 30,
+          "tcpSynRecv": 60,
+          "tcpSynSent": 120,
+          "tcpTimeWait": 120,
+          "udpOther": 30,
+          "udpStream": 180
+        }
+      }
+    }
+  }
+}

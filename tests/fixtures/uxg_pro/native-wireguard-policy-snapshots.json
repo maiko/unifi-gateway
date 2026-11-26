@@ -1,0 +1,234 @@
+{
+  "baseline": {
+    "firewall/filter": [
+      {
+        "config": {"name": "INPUT", "policy": "ACCEPT", "logDefault": false},
+        "rules": [
+          {"id": 30000, "target": "WAN_LOCAL", "description": "WAN_LOCAL jump (interface: eth0)", "log": false, "inInterface": {"id": "eth0"}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000001"},
+          {"id": 30001, "target": "LAN_LOCAL", "description": "LAN_LOCAL jump (interface: br0)", "log": false, "inInterface": {"id": "br0"}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000002"},
+          {"id": 30002, "target": "LAN_LOCAL", "description": "LAN_LOCAL jump (interface: br110)", "log": false, "inInterface": {"id": "br110"}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000003"},
+          {"id": 30003, "target": "LAN_LOCAL", "description": "LAN_LOCAL jump (interface: br120)", "log": false, "inInterface": {"id": "br120"}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000004"}
+        ]
+      },
+      {
+        "config": {"name": "WAN_LOCAL", "logDefault": false},
+        "rules": [
+          {"id": 30000, "target": "ACCEPT", "description": "[WAN_LOCAL]Allow Return Traffic", "log": false, "connectionState": ["established", "related"], "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000005"},
+          {"id": 30001, "target": "DROP", "description": "[WAN_LOCAL]Block Invalid Traffic", "log": false, "connectionState": ["invalid"], "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000006"},
+          {"id": 30002, "target": "ACCEPT", "description": "[WAN_LOCAL]Allow Neighbor Solicitations", "log": false, "protocol": "icmpv6", "icmpv6Type": "neighbor-solicitation", "ipVersion": "v6only", "originId": "11111111-1111-4111-8111-000000000007"},
+          {"id": 30003, "target": "ACCEPT", "description": "[WAN_LOCAL]Allow Neighbor Advertisements", "log": false, "protocol": "icmpv6", "icmpv6Type": "neighbor-advertisement", "ipVersion": "v6only", "originId": "11111111-1111-4111-8111-000000000008"},
+          {"id": 2147483647, "target": "DROP", "description": "[WAN_LOCAL]Block All Traffic", "log": false, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000009"}
+        ]
+      },
+      {
+        "config": {"name": "OUTPUT", "policy": "ACCEPT", "logDefault": false},
+        "rules": [
+          {"id": 30000, "target": "LOCAL_WAN", "description": "LOCAL_WAN jump (interface: eth0)", "log": false, "outInterface": {"id": "eth0"}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000010"},
+          {"id": 30001, "target": "LOCAL_LAN", "description": "LOCAL_LAN jump (interface: br0)", "log": false, "outInterface": {"id": "br0"}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000011"},
+          {"id": 30002, "target": "LOCAL_LAN", "description": "LOCAL_LAN jump (interface: br110)", "log": false, "outInterface": {"id": "br110"}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000012"},
+          {"id": 30003, "target": "LOCAL_LAN", "description": "LOCAL_LAN jump (interface: br120)", "log": false, "outInterface": {"id": "br120"}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000013"}
+        ]
+      },
+      {
+        "config": {"name": "FORWARD_IN", "logDefault": false},
+        "rules": [
+          {"id": 30000, "target": "WAN_IN", "description": "WAN_IN jump (interface: eth0)", "log": false, "inInterface": {"id": "eth0"}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000014"},
+          {"id": 30001, "target": "LAN_IN", "description": "LAN_IN jump (interface: br0)", "log": false, "inInterface": {"id": "br0"}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000015"},
+          {"id": 30002, "target": "LAN_IN", "description": "LAN_IN jump (interface: br110)", "log": false, "inInterface": {"id": "br110"}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000016"},
+          {"id": 30003, "target": "LAN_IN", "description": "LAN_IN jump (interface: br120)", "log": false, "inInterface": {"id": "br120"}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000017"}
+        ]
+      },
+      {
+        "config": {"name": "WAN_IN", "logDefault": false},
+        "rules": [
+          {"id": 30000, "target": "WAN_DMZ", "description": "WAN_DMZ jump ", "log": false, "protocol": "all", "destination": {"sets": ["DMZ_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000018"},
+          {"id": 30001, "target": "WAN_GUEST", "description": "WAN_GUEST jump ", "log": false, "protocol": "all", "destination": {"sets": ["GUEST_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000019"},
+          {"id": 30002, "target": "WAN_LAN", "description": "WAN_LAN jump ", "log": false, "protocol": "all", "destination": {"sets": ["LAN_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000020"},
+          {"id": 30003, "target": "WAN_VPN", "description": "WAN_VPN jump ", "log": false, "protocol": "all", "destination": {"sets": ["VPN_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000021"},
+          {"id": 30004, "target": "WAN_WAN", "description": "WAN_WAN jump ", "log": false, "protocol": "all", "destination": {"sets": ["!local_zoned_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000022"},
+          {"id": 30005, "target": "ACCEPT", "description": "[WAN_IN]Allow Return Traffic", "log": false, "connectionState": ["established", "related"], "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000023"},
+          {"id": 2147483647, "target": "DROP", "description": "[WAN_IN]Block All Traffic", "log": false, "ipVersion": "both"}
+        ]
+      },
+      {
+        "config": {"name": "LAN_IN", "logDefault": false},
+        "rules": [
+          {"id": 30000, "target": "LAN_DMZ", "description": "LAN_DMZ jump ", "log": false, "protocol": "all", "destination": {"sets": ["DMZ_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000024"},
+          {"id": 30001, "target": "LAN_GUEST", "description": "LAN_GUEST jump ", "log": false, "protocol": "all", "destination": {"sets": ["GUEST_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000025"},
+          {"id": 30002, "target": "LAN_LAN", "description": "LAN_LAN jump ", "log": false, "protocol": "all", "destination": {"sets": ["LAN_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000026"},
+          {"id": 30003, "target": "LAN_VPN", "description": "LAN_VPN jump ", "log": false, "protocol": "all", "destination": {"sets": ["VPN_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000027"},
+          {"id": 30004, "target": "LAN_WAN", "description": "LAN_WAN jump ", "log": false, "protocol": "all", "destination": {"sets": ["!local_zoned_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000028"},
+          {"id": 30005, "target": "ACCEPT", "description": "[LAN_IN]Allow Return Traffic", "log": false, "connectionState": ["established", "related"], "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000029"},
+          {"id": 2147483647, "target": "DROP", "description": "[LAN_IN]Block All Traffic", "log": false, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000030"}
+        ]
+      },
+      {
+        "config": {"name": "LAN_LAN", "logDefault": false},
+        "rules": [
+          {"id": 2147483647, "target": "ACCEPT", "description": "[LAN_LAN]Allow All Traffic", "log": false, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000031"}
+        ]
+      },
+      {
+        "config": {"name": "GUEST_IN", "logDefault": false},
+        "rules": [
+          {"id": 30000, "target": "GUEST_DMZ", "description": "GUEST_DMZ jump ", "log": false, "protocol": "all", "destination": {"sets": ["DMZ_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000032"},
+          {"id": 30001, "target": "GUEST_GUEST", "description": "GUEST_GUEST jump ", "log": false, "protocol": "all", "destination": {"sets": ["GUEST_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000033"},
+          {"id": 30002, "target": "GUEST_LAN", "description": "GUEST_LAN jump ", "log": false, "protocol": "all", "destination": {"sets": ["LAN_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000034"},
+          {"id": 30003, "target": "GUEST_VPN", "description": "GUEST_VPN jump ", "log": false, "protocol": "all", "destination": {"sets": ["VPN_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000035"},
+          {"id": 30004, "target": "GUEST_WAN", "description": "GUEST_WAN jump ", "log": false, "protocol": "all", "destination": {"sets": ["!local_zoned_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000036"},
+          {"id": 30005, "target": "ACCEPT", "description": "[GUEST_IN]Allow Return Traffic", "log": false, "connectionState": ["established", "related"], "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000037"},
+          {"id": 2147483647, "target": "DROP", "description": "[GUEST_IN]Block All Traffic", "log": false, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000038"}
+        ]
+      },
+      {
+        "config": {"name": "VPN_IN", "logDefault": false},
+        "rules": [
+          {"id": 30000, "target": "VPN_DMZ", "description": "VPN_DMZ jump ", "log": false, "protocol": "all", "destination": {"sets": ["DMZ_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000039"},
+          {"id": 30001, "target": "VPN_GUEST", "description": "VPN_GUEST jump ", "log": false, "protocol": "all", "destination": {"sets": ["GUEST_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000040"},
+          {"id": 30002, "target": "VPN_LAN", "description": "VPN_LAN jump ", "log": false, "protocol": "all", "destination": {"sets": ["LAN_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000041"},
+          {"id": 30003, "target": "VPN_VPN", "description": "VPN_VPN jump ", "log": false, "protocol": "all", "destination": {"sets": ["VPN_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000042"},
+          {"id": 30004, "target": "VPN_WAN", "description": "VPN_WAN jump ", "log": false, "protocol": "all", "destination": {"sets": ["!local_zoned_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000043"},
+          {"id": 30005, "target": "ACCEPT", "description": "[VPN_IN]Allow Return Traffic", "log": false, "connectionState": ["established", "related"], "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000044"},
+          {"id": 2147483647, "target": "DROP", "description": "[VPN_IN]Block All Traffic", "log": false, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000045"}
+        ]
+      },
+      {
+        "config": {"name": "DMZ_IN", "logDefault": false},
+        "rules": [
+          {"id": 30000, "target": "DMZ_DMZ", "description": "DMZ_DMZ jump ", "log": false, "protocol": "all", "destination": {"sets": ["DMZ_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000046"},
+          {"id": 30001, "target": "DMZ_GUEST", "description": "DMZ_GUEST jump ", "log": false, "protocol": "all", "destination": {"sets": ["GUEST_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000047"},
+          {"id": 30002, "target": "DMZ_LAN", "description": "DMZ_LAN jump ", "log": false, "protocol": "all", "destination": {"sets": ["LAN_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000048"},
+          {"id": 30003, "target": "DMZ_VPN", "description": "DMZ_VPN jump ", "log": false, "protocol": "all", "destination": {"sets": ["VPN_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000049"},
+          {"id": 30004, "target": "DMZ_WAN", "description": "DMZ_WAN jump ", "log": false, "protocol": "all", "destination": {"sets": ["!local_zoned_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000050"},
+          {"id": 30005, "target": "ACCEPT", "description": "[DMZ_IN]Allow Return Traffic", "log": false, "connectionState": ["established", "related"], "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000051"},
+          {"id": 2147483647, "target": "DROP", "description": "[DMZ_IN]Block All Traffic", "log": false, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000052"}
+        ]
+      }
+    ],
+    "firewall/sets": [
+      {"identification": {"name": "LAN_subnets", "type": "address"}, "description": "Internal zone subnets", "entries": ["192.168.1.0/24", "192.168.120.0/24", "192.168.110.0/24"]},
+      {"identification": {"name": "VPN_subnets", "type": "address"}, "description": "Vpn zone subnets"},
+      {"identification": {"name": "remote_user_vpn_network", "type": "address"}, "description": "Remote User VPN subnets"},
+      {"identification": {"name": "remote_site_vpn_network", "type": "address"}, "description": "remote site VPN subnets"}
+    ]
+  },
+  "create": {
+    "firewall/filter": [
+      {
+        "config": {"name": "INPUT", "policy": "ACCEPT", "logDefault": false},
+        "rules": [
+          {"id": 30000, "target": "WAN_LOCAL", "description": "WAN_LOCAL jump (interface: eth0)", "log": false, "inInterface": {"id": "eth0"}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000001"},
+          {"id": 30001, "target": "LAN_LOCAL", "description": "LAN_LOCAL jump (interface: br0)", "log": false, "inInterface": {"id": "br0"}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000002"},
+          {"id": 30002, "target": "LAN_LOCAL", "description": "LAN_LOCAL jump (interface: br110)", "log": false, "inInterface": {"id": "br110"}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000003"},
+          {"id": 30003, "target": "LAN_LOCAL", "description": "LAN_LOCAL jump (interface: br120)", "log": false, "inInterface": {"id": "br120"}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000004"},
+          {"id": 30004, "target": "VPN_LOCAL", "negateInInterface": false, "negateOutInterface": false, "description": "Forward WIREGUARD_SERVER traffic to VPN_LOCAL", "log": false, "protocol": "all", "connectionState": [], "inInterface": {"id": "wgsrv+"}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000053"}
+        ]
+      },
+      {
+        "config": {"name": "WAN_LOCAL", "logDefault": false},
+        "rules": [
+          {"id": 30000, "target": "ACCEPT", "description": "[WAN_LOCAL]Allow Return Traffic", "log": false, "connectionState": ["established", "related"], "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000005"},
+          {"id": 30001, "target": "DROP", "description": "[WAN_LOCAL]Block Invalid Traffic", "log": false, "connectionState": ["invalid"], "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000006"},
+          {"id": 30002, "target": "ACCEPT", "description": "[WAN_LOCAL]Allow WireGuard VPNs", "log": false, "protocol": "udp", "destination": {"sets": ["wireguard_ports"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000054"},
+          {"id": 30003, "target": "ACCEPT", "description": "[WAN_LOCAL]Allow Neighbor Solicitations", "log": false, "protocol": "icmpv6", "icmpv6Type": "neighbor-solicitation", "ipVersion": "v6only", "originId": "11111111-1111-4111-8111-000000000007"},
+          {"id": 30004, "target": "ACCEPT", "description": "[WAN_LOCAL]Allow Neighbor Advertisements", "log": false, "protocol": "icmpv6", "icmpv6Type": "neighbor-advertisement", "ipVersion": "v6only", "originId": "11111111-1111-4111-8111-000000000008"},
+          {"id": 2147483647, "target": "DROP", "description": "[WAN_LOCAL]Block All Traffic", "log": false, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000009"}
+        ]
+      },
+      {
+        "config": {"name": "OUTPUT", "policy": "ACCEPT", "logDefault": false},
+        "rules": [
+          {"id": 30000, "target": "LOCAL_WAN", "description": "LOCAL_WAN jump (interface: eth0)", "log": false, "outInterface": {"id": "eth0"}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000010"},
+          {"id": 30001, "target": "LOCAL_LAN", "description": "LOCAL_LAN jump (interface: br0)", "log": false, "outInterface": {"id": "br0"}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000011"},
+          {"id": 30002, "target": "LOCAL_LAN", "description": "LOCAL_LAN jump (interface: br110)", "log": false, "outInterface": {"id": "br110"}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000012"},
+          {"id": 30003, "target": "LOCAL_LAN", "description": "LOCAL_LAN jump (interface: br120)", "log": false, "outInterface": {"id": "br120"}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000013"},
+          {"id": 30004, "target": "LOCAL_VPN", "negateInInterface": false, "negateOutInterface": false, "description": "Forward WIREGUARD_SERVER traffic to LOCAL_VPN", "log": false, "protocol": "all", "connectionState": [], "outInterface": {"id": "wgsrv+"}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000055"}
+        ]
+      },
+      {
+        "config": {"name": "FORWARD_IN", "logDefault": false},
+        "rules": [
+          {"id": 30000, "target": "WAN_IN", "description": "WAN_IN jump (interface: eth0)", "log": false, "inInterface": {"id": "eth0"}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000014"},
+          {"id": 30001, "target": "LAN_IN", "description": "LAN_IN jump (interface: br0)", "log": false, "inInterface": {"id": "br0"}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000015"},
+          {"id": 30002, "target": "LAN_IN", "description": "LAN_IN jump (interface: br110)", "log": false, "inInterface": {"id": "br110"}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000016"},
+          {"id": 30003, "target": "LAN_IN", "description": "LAN_IN jump (interface: br120)", "log": false, "inInterface": {"id": "br120"}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000017"},
+          {"id": 30004, "target": "VPN_IN", "negateInInterface": false, "negateOutInterface": false, "description": "VPN_IN jump (interface: wgsrv+) ", "log": false, "protocol": "all", "connectionState": [], "inInterface": {"id": "wgsrv+"}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000056"}
+        ]
+      },
+      {
+        "config": {"name": "WAN_IN", "logDefault": false},
+        "rules": [
+          {"id": 30000, "target": "WAN_DMZ", "description": "WAN_DMZ jump ", "log": false, "protocol": "all", "destination": {"sets": ["DMZ_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000018"},
+          {"id": 30001, "target": "WAN_GUEST", "description": "WAN_GUEST jump ", "log": false, "protocol": "all", "destination": {"sets": ["GUEST_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000019"},
+          {"id": 30002, "target": "WAN_LAN", "description": "WAN_LAN jump ", "log": false, "protocol": "all", "destination": {"sets": ["LAN_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000020"},
+          {"id": 30003, "target": "WAN_VPN", "description": "WAN_VPN jump ", "log": false, "protocol": "all", "destination": {"sets": ["VPN_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000021"},
+          {"id": 30004, "target": "WAN_WAN", "description": "WAN_WAN jump ", "log": false, "protocol": "all", "destination": {"sets": ["!local_zoned_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000022"},
+          {"id": 30005, "target": "ACCEPT", "description": "[WAN_IN]Allow Return Traffic", "log": false, "connectionState": ["established", "related"], "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000023"},
+          {"id": 2147483647, "target": "DROP", "description": "[WAN_IN]Block All Traffic", "log": false, "ipVersion": "both"}
+        ]
+      },
+      {
+        "config": {"name": "LAN_IN", "logDefault": false},
+        "rules": [
+          {"id": 30000, "target": "LAN_DMZ", "description": "LAN_DMZ jump ", "log": false, "protocol": "all", "destination": {"sets": ["DMZ_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000024"},
+          {"id": 30001, "target": "LAN_GUEST", "description": "LAN_GUEST jump ", "log": false, "protocol": "all", "destination": {"sets": ["GUEST_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000025"},
+          {"id": 30002, "target": "LAN_LAN", "description": "LAN_LAN jump ", "log": false, "protocol": "all", "destination": {"sets": ["LAN_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000026"},
+          {"id": 30003, "target": "LAN_VPN", "description": "LAN_VPN jump ", "log": false, "protocol": "all", "destination": {"sets": ["VPN_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000027"},
+          {"id": 30004, "target": "LAN_WAN", "description": "LAN_WAN jump ", "log": false, "protocol": "all", "destination": {"sets": ["!local_zoned_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000028"},
+          {"id": 30005, "target": "ACCEPT", "description": "[LAN_IN]Allow Return Traffic", "log": false, "connectionState": ["established", "related"], "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000029"},
+          {"id": 2147483647, "target": "DROP", "description": "[LAN_IN]Block All Traffic", "log": false, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000030"}
+        ]
+      },
+      {
+        "config": {"name": "LAN_LAN", "logDefault": false},
+        "rules": [
+          {"id": 2147483647, "target": "ACCEPT", "description": "[LAN_LAN]Allow All Traffic", "log": false, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000031"}
+        ]
+      },
+      {
+        "config": {"name": "GUEST_IN", "logDefault": false},
+        "rules": [
+          {"id": 30000, "target": "GUEST_DMZ", "description": "GUEST_DMZ jump ", "log": false, "protocol": "all", "destination": {"sets": ["DMZ_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000032"},
+          {"id": 30001, "target": "GUEST_GUEST", "description": "GUEST_GUEST jump ", "log": false, "protocol": "all", "destination": {"sets": ["GUEST_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000033"},
+          {"id": 30002, "target": "GUEST_LAN", "description": "GUEST_LAN jump ", "log": false, "protocol": "all", "destination": {"sets": ["LAN_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000034"},
+          {"id": 30003, "target": "GUEST_VPN", "description": "GUEST_VPN jump ", "log": false, "protocol": "all", "destination": {"sets": ["VPN_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000035"},
+          {"id": 30004, "target": "GUEST_WAN", "description": "GUEST_WAN jump ", "log": false, "protocol": "all", "destination": {"sets": ["!local_zoned_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000036"},
+          {"id": 30005, "target": "ACCEPT", "description": "[GUEST_IN]Allow Return Traffic", "log": false, "connectionState": ["established", "related"], "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000037"},
+          {"id": 2147483647, "target": "DROP", "description": "[GUEST_IN]Block All Traffic", "log": false, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000038"}
+        ]
+      },
+      {
+        "config": {"name": "VPN_IN", "logDefault": false},
+        "rules": [
+          {"id": 30000, "target": "VPN_DMZ", "description": "VPN_DMZ jump ", "log": false, "protocol": "all", "destination": {"sets": ["DMZ_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000039"},
+          {"id": 30001, "target": "VPN_GUEST", "description": "VPN_GUEST jump ", "log": false, "protocol": "all", "destination": {"sets": ["GUEST_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000040"},
+          {"id": 30002, "target": "VPN_LAN", "description": "VPN_LAN jump ", "log": false, "protocol": "all", "destination": {"sets": ["LAN_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000041"},
+          {"id": 30003, "target": "VPN_VPN", "description": "VPN_VPN jump ", "log": false, "protocol": "all", "destination": {"sets": ["VPN_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000042"},
+          {"id": 30004, "target": "VPN_WAN", "description": "VPN_WAN jump ", "log": false, "protocol": "all", "destination": {"sets": ["!local_zoned_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000043"},
+          {"id": 30005, "target": "ACCEPT", "description": "[VPN_IN]Allow Return Traffic", "log": false, "connectionState": ["established", "related"], "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000044"},
+          {"id": 2147483647, "target": "DROP", "description": "[VPN_IN]Block All Traffic", "log": false, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000045"}
+        ]
+      },
+      {
+        "config": {"name": "DMZ_IN", "logDefault": false},
+        "rules": [
+          {"id": 30000, "target": "DMZ_DMZ", "description": "DMZ_DMZ jump ", "log": false, "protocol": "all", "destination": {"sets": ["DMZ_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000046"},
+          {"id": 30001, "target": "DMZ_GUEST", "description": "DMZ_GUEST jump ", "log": false, "protocol": "all", "destination": {"sets": ["GUEST_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000047"},
+          {"id": 30002, "target": "DMZ_LAN", "description": "DMZ_LAN jump ", "log": false, "protocol": "all", "destination": {"sets": ["LAN_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000048"},
+          {"id": 30003, "target": "DMZ_VPN", "description": "DMZ_VPN jump ", "log": false, "protocol": "all", "destination": {"sets": ["VPN_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000049"},
+          {"id": 30004, "target": "DMZ_WAN", "description": "DMZ_WAN jump ", "log": false, "protocol": "all", "destination": {"sets": ["!local_zoned_subnets"]}, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000050"},
+          {"id": 30005, "target": "ACCEPT", "description": "[DMZ_IN]Allow Return Traffic", "log": false, "connectionState": ["established", "related"], "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000051"},
+          {"id": 2147483647, "target": "DROP", "description": "[DMZ_IN]Block All Traffic", "log": false, "ipVersion": "both", "originId": "11111111-1111-4111-8111-000000000052"}
+        ]
+      }
+    ],
+    "firewall/sets": [
+      {"identification": {"name": "LAN_subnets", "type": "address"}, "description": "Internal zone subnets", "entries": ["192.168.1.0/24", "192.168.120.0/24", "192.168.110.0/24"]},
+      {"identification": {"name": "VPN_subnets", "type": "address"}, "description": "Vpn zone subnets", "entries": ["172.29.91.0/24"]},
+      {"identification": {"name": "remote_user_vpn_network", "type": "address"}, "description": "Remote User VPN subnets", "entries": ["172.29.91.0/24"]},
+      {"identification": {"name": "remote_site_vpn_network", "type": "address"}, "description": "remote site VPN subnets"},
+      {"identification": {"name": "wireguard_ports", "type": "port"}, "description": "Wireguard VPN ports", "entries": ["51820"]}
+    ]
+  },
+  "edited_port_set": {"identification": {"name": "wireguard_ports", "type": "port"}, "description": "Wireguard VPN ports", "entries": ["51821"]}
+}

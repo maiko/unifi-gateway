@@ -1,0 +1,1522 @@
+{
+  "off": {
+    "firewall/filter": [
+      {
+        "config": {
+          "name": "INPUT",
+          "policy": "ACCEPT",
+          "logDefault": false
+        },
+        "rules": [
+          {
+            "id": 30000,
+            "target": "WAN_LOCAL",
+            "description": "WAN_LOCAL jump (interface: eth0)",
+            "log": false,
+            "inInterface": {
+              "id": "eth0"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000001"
+          },
+          {
+            "id": 30001,
+            "target": "LAN_LOCAL",
+            "description": "LAN_LOCAL jump (interface: br0)",
+            "log": false,
+            "inInterface": {
+              "id": "br0"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000002"
+          },
+          {
+            "id": 30002,
+            "target": "LAN_LOCAL",
+            "description": "LAN_LOCAL jump (interface: br110)",
+            "log": false,
+            "inInterface": {
+              "id": "br110"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000003"
+          },
+          {
+            "id": 30003,
+            "target": "LAN_LOCAL",
+            "description": "LAN_LOCAL jump (interface: br120)",
+            "log": false,
+            "inInterface": {
+              "id": "br120"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000004"
+          }
+        ]
+      },
+      {
+        "config": {
+          "name": "WAN_LOCAL",
+          "logDefault": false
+        },
+        "rules": [
+          {
+            "id": 30000,
+            "target": "ACCEPT",
+            "description": "[WAN_LOCAL]Allow Return Traffic",
+            "log": false,
+            "connectionState": [
+              "established",
+              "related"
+            ],
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000005"
+          },
+          {
+            "id": 30001,
+            "target": "DROP",
+            "description": "[WAN_LOCAL]Block Invalid Traffic",
+            "log": false,
+            "connectionState": [
+              "invalid"
+            ],
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000006"
+          },
+          {
+            "id": 30002,
+            "target": "ACCEPT",
+            "description": "[WAN_LOCAL]Allow Neighbor Solicitations",
+            "log": false,
+            "protocol": "icmpv6",
+            "icmpv6Type": "neighbor-solicitation",
+            "ipVersion": "v6only",
+            "originId": "00000000-0000-4000-8000-000000000007"
+          },
+          {
+            "id": 30003,
+            "target": "ACCEPT",
+            "description": "[WAN_LOCAL]Allow Neighbor Advertisements",
+            "log": false,
+            "protocol": "icmpv6",
+            "icmpv6Type": "neighbor-advertisement",
+            "ipVersion": "v6only",
+            "originId": "00000000-0000-4000-8000-000000000008"
+          },
+          {
+            "id": 2147483647,
+            "target": "DROP",
+            "description": "[WAN_LOCAL]Block All Traffic",
+            "log": false,
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000009"
+          }
+        ]
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-2"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-3"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-4"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-5"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "OUTPUT",
+          "policy": "ACCEPT",
+          "logDefault": false
+        },
+        "rules": [
+          {
+            "id": 30000,
+            "target": "LOCAL_WAN",
+            "description": "LOCAL_WAN jump (interface: eth0)",
+            "log": false,
+            "outInterface": {
+              "id": "eth0"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-00000000000a"
+          },
+          {
+            "id": 30001,
+            "target": "LOCAL_LAN",
+            "description": "LOCAL_LAN jump (interface: br0)",
+            "log": false,
+            "outInterface": {
+              "id": "br0"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-00000000000b"
+          },
+          {
+            "id": 30002,
+            "target": "LOCAL_LAN",
+            "description": "LOCAL_LAN jump (interface: br110)",
+            "log": false,
+            "outInterface": {
+              "id": "br110"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-00000000000c"
+          },
+          {
+            "id": 30003,
+            "target": "LOCAL_LAN",
+            "description": "LOCAL_LAN jump (interface: br120)",
+            "log": false,
+            "outInterface": {
+              "id": "br120"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-00000000000d"
+          }
+        ]
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-7"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-8"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-9"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-10"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-11"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-12"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "FORWARD_IN",
+          "logDefault": false
+        },
+        "rules": [
+          {
+            "id": 30000,
+            "target": "WAN_IN",
+            "description": "WAN_IN jump (interface: eth0)",
+            "log": false,
+            "inInterface": {
+              "id": "eth0"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-00000000000e"
+          },
+          {
+            "id": 30001,
+            "target": "LAN_IN",
+            "description": "LAN_IN jump (interface: br0)",
+            "log": false,
+            "inInterface": {
+              "id": "br0"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-00000000000f"
+          },
+          {
+            "id": 30002,
+            "target": "LAN_IN",
+            "description": "LAN_IN jump (interface: br110)",
+            "log": false,
+            "inInterface": {
+              "id": "br110"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000010"
+          },
+          {
+            "id": 30003,
+            "target": "LAN_IN",
+            "description": "LAN_IN jump (interface: br120)",
+            "log": false,
+            "inInterface": {
+              "id": "br120"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000011"
+          }
+        ]
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-14"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-15"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-16"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-17"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "WAN_LAN",
+          "logDefault": false
+        },
+        "rules": [
+          {
+            "id": 30000,
+            "target": "ACCEPT",
+            "description": "[WAN_LAN]Allow Return Traffic",
+            "log": false,
+            "connectionState": [
+              "established",
+              "related"
+            ],
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000012"
+          },
+          {
+            "id": 30001,
+            "target": "DROP",
+            "description": "[WAN_LAN]Block Invalid Traffic",
+            "log": false,
+            "connectionState": [
+              "invalid"
+            ],
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000013"
+          },
+          {
+            "id": 2147483647,
+            "target": "DROP",
+            "description": "[WAN_LAN]Block All Traffic",
+            "log": false,
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000014"
+          }
+        ]
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-19"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-20"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-21"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-22"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-23"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-24"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-25"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-26"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-27"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-28"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-29"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-30"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-31"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-32"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-33"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-34"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-35"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-36"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-37"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-38"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-39"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-40"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-41"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-42"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-43"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-44"
+        },
+        "rules": []
+      }
+    ],
+    "firewall/nat": [
+      {
+        "id": 1,
+        "chain": "POSTROUTING",
+        "target": "MASQUERADE",
+        "enabled": true,
+        "log": false,
+        "source": {
+          "sets": [
+            "!ALL_ADDRv4_eth0"
+          ]
+        },
+        "outInterface": {
+          "id": "eth0"
+        },
+        "ipVersion": "v4only",
+        "originId": "00000000-0000-4000-8000-000000000015"
+      }
+    ],
+    "firewall/sets": [
+      {
+        "identification": {
+          "name": "unmanaged-set-0",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-1",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-2",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-3",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-4",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-5",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-6",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-7",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-8",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "VPN_subnets",
+          "type": "address"
+        },
+        "description": "Vpn zone subnets"
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-10",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-11",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-12",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-13",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-14",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-15",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-16",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-17",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-18",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "remote_site_vpn_network",
+          "type": "address"
+        },
+        "description": "remote site VPN subnets"
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-20",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-21",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-22",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-23",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-24",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-25",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-26",
+          "type": "address"
+        }
+      }
+    ]
+  },
+  "create": {
+    "firewall/filter": [
+      {
+        "config": {
+          "name": "INPUT",
+          "policy": "ACCEPT",
+          "logDefault": false
+        },
+        "rules": [
+          {
+            "id": 30000,
+            "target": "WAN_LOCAL",
+            "description": "WAN_LOCAL jump (interface: eth0)",
+            "log": false,
+            "inInterface": {
+              "id": "eth0"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000001"
+          },
+          {
+            "id": 30001,
+            "target": "LAN_LOCAL",
+            "description": "LAN_LOCAL jump (interface: br0)",
+            "log": false,
+            "inInterface": {
+              "id": "br0"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000002"
+          },
+          {
+            "id": 30002,
+            "target": "LAN_LOCAL",
+            "description": "LAN_LOCAL jump (interface: br110)",
+            "log": false,
+            "inInterface": {
+              "id": "br110"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000003"
+          },
+          {
+            "id": 30003,
+            "target": "LAN_LOCAL",
+            "description": "LAN_LOCAL jump (interface: br120)",
+            "log": false,
+            "inInterface": {
+              "id": "br120"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000004"
+          },
+          {
+            "id": 30004,
+            "target": "VPN_LOCAL",
+            "negateInInterface": false,
+            "negateOutInterface": false,
+            "description": "Forward IPSEC_SITE_TO_SITE traffic to VPN_LOCAL",
+            "log": false,
+            "protocol": "all",
+            "connectionState": [],
+            "inInterface": {
+              "id": "vti+"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000016"
+          }
+        ]
+      },
+      {
+        "config": {
+          "name": "WAN_LOCAL",
+          "logDefault": false
+        },
+        "rules": [
+          {
+            "id": 30000,
+            "target": "ACCEPT",
+            "description": "[WAN_LOCAL]Allow Return Traffic",
+            "log": false,
+            "connectionState": [
+              "established",
+              "related"
+            ],
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000005"
+          },
+          {
+            "id": 30001,
+            "target": "DROP",
+            "description": "[WAN_LOCAL]Block Invalid Traffic",
+            "log": false,
+            "connectionState": [
+              "invalid"
+            ],
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000006"
+          },
+          {
+            "id": 30002,
+            "target": "ACCEPT",
+            "description": "[WAN_LOCAL]Allow IPsec",
+            "log": false,
+            "protocol": "udp",
+            "destination": {
+              "sets": [
+                "ipsec_ports"
+              ]
+            },
+            "ipVersion": "v4only",
+            "originId": "00000000-0000-4000-8000-000000000017"
+          },
+          {
+            "id": 30003,
+            "target": "ACCEPT",
+            "description": "[WAN_LOCAL]Allow ESP",
+            "log": false,
+            "protocol": "esp",
+            "ipVersion": "v4only",
+            "originId": "00000000-0000-4000-8000-000000000018"
+          },
+          {
+            "id": 30004,
+            "target": "ACCEPT",
+            "description": "[WAN_LOCAL]Allow Neighbor Solicitations",
+            "log": false,
+            "protocol": "icmpv6",
+            "icmpv6Type": "neighbor-solicitation",
+            "ipVersion": "v6only",
+            "originId": "00000000-0000-4000-8000-000000000007"
+          },
+          {
+            "id": 30005,
+            "target": "ACCEPT",
+            "description": "[WAN_LOCAL]Allow Neighbor Advertisements",
+            "log": false,
+            "protocol": "icmpv6",
+            "icmpv6Type": "neighbor-advertisement",
+            "ipVersion": "v6only",
+            "originId": "00000000-0000-4000-8000-000000000008"
+          },
+          {
+            "id": 30006,
+            "target": "ACCEPT",
+            "description": "[WAN_LOCAL]Allow Policy-Based IPsec Site-to-Site VPN",
+            "log": false,
+            "source": {
+              "sets": [
+                "ipsec_remote_subnets"
+              ]
+            },
+            "destination": {
+              "sets": [
+                "corporate_network"
+              ]
+            },
+            "ipsecPolicy": "match_inbound_ipsec",
+            "ipVersion": "v4only",
+            "originId": "00000000-0000-4000-8000-000000000019"
+          },
+          {
+            "id": 2147483647,
+            "target": "DROP",
+            "description": "[WAN_LOCAL]Block All Traffic",
+            "log": false,
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000009"
+          }
+        ]
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-2"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-3"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-4"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-5"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "OUTPUT",
+          "policy": "ACCEPT",
+          "logDefault": false
+        },
+        "rules": [
+          {
+            "id": 30000,
+            "target": "LOCAL_WAN",
+            "description": "LOCAL_WAN jump (interface: eth0)",
+            "log": false,
+            "outInterface": {
+              "id": "eth0"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-00000000000a"
+          },
+          {
+            "id": 30001,
+            "target": "LOCAL_LAN",
+            "description": "LOCAL_LAN jump (interface: br0)",
+            "log": false,
+            "outInterface": {
+              "id": "br0"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-00000000000b"
+          },
+          {
+            "id": 30002,
+            "target": "LOCAL_LAN",
+            "description": "LOCAL_LAN jump (interface: br110)",
+            "log": false,
+            "outInterface": {
+              "id": "br110"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-00000000000c"
+          },
+          {
+            "id": 30003,
+            "target": "LOCAL_LAN",
+            "description": "LOCAL_LAN jump (interface: br120)",
+            "log": false,
+            "outInterface": {
+              "id": "br120"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-00000000000d"
+          },
+          {
+            "id": 30004,
+            "target": "LOCAL_VPN",
+            "negateInInterface": false,
+            "negateOutInterface": false,
+            "description": "Forward IPSEC_SITE_TO_SITE traffic to LOCAL_VPN",
+            "log": false,
+            "protocol": "all",
+            "connectionState": [],
+            "outInterface": {
+              "id": "vti+"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-00000000001a"
+          }
+        ]
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-7"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-8"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-9"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-10"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-11"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-12"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "FORWARD_IN",
+          "logDefault": false
+        },
+        "rules": [
+          {
+            "id": 30000,
+            "target": "WAN_IN",
+            "description": "WAN_IN jump (interface: eth0)",
+            "log": false,
+            "inInterface": {
+              "id": "eth0"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-00000000000e"
+          },
+          {
+            "id": 30001,
+            "target": "LAN_IN",
+            "description": "LAN_IN jump (interface: br0)",
+            "log": false,
+            "inInterface": {
+              "id": "br0"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-00000000000f"
+          },
+          {
+            "id": 30002,
+            "target": "LAN_IN",
+            "description": "LAN_IN jump (interface: br110)",
+            "log": false,
+            "inInterface": {
+              "id": "br110"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000010"
+          },
+          {
+            "id": 30003,
+            "target": "LAN_IN",
+            "description": "LAN_IN jump (interface: br120)",
+            "log": false,
+            "inInterface": {
+              "id": "br120"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000011"
+          },
+          {
+            "id": 30004,
+            "target": "VPN_IN",
+            "negateInInterface": false,
+            "negateOutInterface": false,
+            "description": "VPN_IN jump (interface: vti+) ",
+            "log": false,
+            "protocol": "all",
+            "connectionState": [],
+            "inInterface": {
+              "id": "vti+"
+            },
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-00000000001b"
+          }
+        ]
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-14"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-15"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-16"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-17"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "WAN_LAN",
+          "logDefault": false
+        },
+        "rules": [
+          {
+            "id": 30000,
+            "target": "ACCEPT",
+            "description": "[WAN_LAN]Allow Policy-Based IPsec Site-to-Site VPN",
+            "log": false,
+            "source": {
+              "sets": [
+                "ipsec_remote_subnets"
+              ]
+            },
+            "destination": {
+              "sets": [
+                "LAN_corporate_network"
+              ]
+            },
+            "ipsecPolicy": "match_inbound_ipsec",
+            "ipVersion": "v4only",
+            "originId": "00000000-0000-4000-8000-00000000001c"
+          },
+          {
+            "id": 30001,
+            "target": "ACCEPT",
+            "description": "[WAN_LAN]Allow Return Traffic",
+            "log": false,
+            "connectionState": [
+              "established",
+              "related"
+            ],
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000012"
+          },
+          {
+            "id": 30002,
+            "target": "DROP",
+            "description": "[WAN_LAN]Block Invalid Traffic",
+            "log": false,
+            "connectionState": [
+              "invalid"
+            ],
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000013"
+          },
+          {
+            "id": 2147483647,
+            "target": "DROP",
+            "description": "[WAN_LAN]Block All Traffic",
+            "log": false,
+            "ipVersion": "both",
+            "originId": "00000000-0000-4000-8000-000000000014"
+          }
+        ]
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-19"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-20"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-21"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-22"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-23"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-24"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-25"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-26"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-27"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-28"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-29"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-30"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-31"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-32"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-33"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-34"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-35"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-36"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-37"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-38"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-39"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-40"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-41"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-42"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-43"
+        },
+        "rules": []
+      },
+      {
+        "config": {
+          "name": "unmanaged-chain-44"
+        },
+        "rules": []
+      }
+    ],
+    "firewall/nat": [
+      {
+        "id": 1,
+        "chain": "POSTROUTING",
+        "target": "RETURN",
+        "description": "Do not NAT outbound IPsec site-to-site traffic",
+        "enabled": true,
+        "log": false,
+        "destination": {
+          "sets": [
+            "ipsec_remote_subnets"
+          ]
+        },
+        "outInterface": {
+          "id": "eth0"
+        },
+        "ipVersion": "v4only"
+      },
+      {
+        "id": 2,
+        "chain": "POSTROUTING",
+        "target": "MASQUERADE",
+        "enabled": true,
+        "log": false,
+        "source": {
+          "sets": [
+            "!ALL_ADDRv4_eth0"
+          ]
+        },
+        "outInterface": {
+          "id": "eth0"
+        },
+        "ipVersion": "v4only",
+        "originId": "00000000-0000-4000-8000-000000000015"
+      }
+    ],
+    "firewall/sets": [
+      {
+        "identification": {
+          "name": "unmanaged-set-0",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-1",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-2",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-3",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-4",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-5",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-6",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-7",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-8",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "VPN_subnets",
+          "type": "address"
+        },
+        "description": "Vpn zone subnets",
+        "entries": [
+          "198.19.210.240/32"
+        ]
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-10",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-11",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-12",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-13",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-14",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-15",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-16",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-17",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-18",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "remote_site_vpn_network",
+          "type": "address"
+        },
+        "description": "remote site VPN subnets",
+        "entries": [
+          "198.19.210.240/32"
+        ]
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-20",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-21",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-22",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-23",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-24",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-25",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "unmanaged-set-26",
+          "type": "address"
+        }
+      },
+      {
+        "identification": {
+          "name": "ipsec_ports",
+          "type": "port"
+        },
+        "description": "IPSec VPN ports",
+        "entries": [
+          "500",
+          "4500"
+        ]
+      },
+      {
+        "identification": {
+          "name": "ipsec_remote_subnets",
+          "type": "address"
+        },
+        "description": "IPSec remote subnets",
+        "entries": [
+          "198.19.210.240/32"
+        ]
+      }
+    ]
+  }
+}

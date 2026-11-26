@@ -1,0 +1,49 @@
+{
+  "network_build": "11.0.104-37279-1",
+  "scope": "Native source NAT captures reduced to the version and NAT list with documentation IPv4 addresses",
+  "version": 48,
+  "versionFormat": "v2",
+  "versionDetail": {
+    "firewall/filter": 4,
+    "firewall/mangle": 6,
+    "firewall/nat": 7,
+    "firewall/sets": 1,
+    "firewall/settings": 1,
+    "interfaces": 8,
+    "services/dnsForwarder": 4
+  },
+  "rules": {
+    "create": [
+      {
+        "id": 1,
+        "chain": "POSTROUTING",
+        "target": "MASQUERADE",
+        "description": "VyOS Lab Masquerade",
+        "enabled": true,
+        "log": false,
+        "protocol": "tcp",
+        "source": {"address": "192.0.2.0/24"},
+        "destination": {"address": "198.51.100.2", "port": "8444"},
+        "outInterface": {"id": "br120"},
+        "ipVersion": "v4only"
+      }
+    ],
+    "edit": [
+      {
+        "id": 1,
+        "chain": "POSTROUTING",
+        "target": "SNAT",
+        "translation": {"address": "198.51.100.1"},
+        "description": "VyOS Lab Masquerade",
+        "enabled": true,
+        "log": false,
+        "protocol": "tcp",
+        "source": {"address": "192.0.2.0/24"},
+        "destination": {"address": "198.51.100.2", "port": "8443"},
+        "outInterface": {"id": "br120"},
+        "ipVersion": "v4only"
+      }
+    ],
+    "delete": []
+  }
+}

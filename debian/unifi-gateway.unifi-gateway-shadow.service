@@ -1,0 +1,29 @@
+[Unit]
+Description=VyOS UXG Enterprise Shadow Mode pair for UniFi Network
+Wants=network-online.target
+After=network-online.target
+AssertPathExists=/etc/unifi-gateway/shadow/primary/site.conf
+AssertPathExists=/etc/unifi-gateway/shadow/standby/site.conf
+
+[Service]
+Type=simple
+DynamicUser=yes
+StateDirectory=unifi-gateway-shadow
+StateDirectoryMode=0700
+UMask=0077
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+NoNewPrivileges=yes
+CapabilityBoundingSet=
+LoadCredential=primary:/etc/unifi-gateway/shadow/primary
+LoadCredential=standby:/etc/unifi-gateway/shadow/standby
+Environment=UNIFI_GW_LOG_LEVEL=INFO
+ExecStart=/bin/bash /usr/share/unifi-gateway/tools/run-shadow-pair.sh
+KillMode=mixed
+TimeoutStopSec=70
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

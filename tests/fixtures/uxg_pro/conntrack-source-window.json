@@ -1,0 +1,40 @@
+{
+  "description": "Recorded VM114 conntrack and header-only tcpdump data with exact endpoint receipts. The collector run ID, boot ID, and closing window timestamp are synthetic test framing.",
+  "record": {
+    "begin": {
+      "collector_run_id": "11111111-1111-4111-8111-111111111111",
+      "router_boot_id": "22222222-2222-4222-8222-222222222222",
+      "unix_ns": 1795533947461593003
+    },
+    "end": {
+      "collector_run_id": "11111111-1111-4111-8111-111111111111",
+      "router_boot_id": "22222222-2222-4222-8222-222222222222",
+      "unix_ns": 1795533953000000000
+    },
+    "conntrack": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<conntrack>\n<flow type=\"destroy\"><meta direction=\"original\"><layer3 protonum=\"2\" protoname=\"ipv4\"><src>192.168.110.2</src><dst>192.168.120.2</dst></layer3><layer4 protonum=\"6\" protoname=\"tcp\"><sport>18685</sport><dport>18686</dport></layer4><counters><packets>6</packets><bytes>352</bytes></counters></meta><meta direction=\"reply\"><layer3 protonum=\"2\" protoname=\"ipv4\"><src>192.168.120.2</src><dst>192.168.110.2</dst></layer3><layer4 protonum=\"6\" protoname=\"tcp\"><sport>18686</sport><dport>18685</dport></layer4><counters><packets>4</packets><bytes>266</bytes></counters></meta><meta direction=\"independent\"><state>TIME_WAIT</state><id>3949867120</id><assured/><timestamp><start>1795533947875988169</start><stop>1795533952877374043</stop></timestamp><deltatime>5</deltatime></meta></flow>\n</conntrack>\nconntrack v1.4.7 (conntrack-tools): 1 flow events have been shown.\n",
+    "original_capture": "1795533947.875995 IP (tos 0x0, ttl 63, id 964, offset 0, flags [DF], proto TCP (6), length 60)\n    192.168.110.2.18685 > 192.168.120.2.18686: Flags [S], seq 423864310, win 64240, options [mss 1460,sackOK,TS val 2616846199 ecr 0,nop,wscale 7], length 0\n1795533947.876723 IP (tos 0x0, ttl 63, id 965, offset 0, flags [DF], proto TCP (6), length 52)\n    192.168.110.2.18685 > 192.168.120.2.18686: Flags [.], ack 1554330295, win 502, options [nop,nop,TS val 2616846200 ecr 3605445122], length 0\n1795533947.876815 IP (tos 0x0, ttl 63, id 966, offset 0, flags [DF], proto TCP (6), length 84)\n    192.168.110.2.18685 > 192.168.120.2.18686: Flags [P.], seq 0:32, ack 1, win 502, options [nop,nop,TS val 2616846200 ecr 3605445122], length 32\n1795533947.876823 IP (tos 0x0, ttl 63, id 967, offset 0, flags [DF], proto TCP (6), length 52)\n    192.168.110.2.18685 > 192.168.120.2.18686: Flags [F.], seq 32, ack 1, win 502, options [nop,nop,TS val 2616846200 ecr 3605445122], length 0\n1795533947.877550 IP (tos 0x0, ttl 63, id 968, offset 0, flags [DF], proto TCP (6), length 52)\n    192.168.110.2.18685 > 192.168.120.2.18686: Flags [.], ack 51, win 502, options [nop,nop,TS val 2616846200 ecr 3605445123], length 0\n1795533947.877657 IP (tos 0x0, ttl 63, id 969, offset 0, flags [DF], proto TCP (6), length 52)\n    192.168.110.2.18685 > 192.168.120.2.18686: Flags [.], ack 52, win 502, options [nop,nop,TS val 2616846201 ecr 3605445123], length 0\n\ntcpdump: listening on eth3.120, link-type EN10MB (Ethernet), snapshot length 128 bytes\n6 packets captured\n6 packets received by filter\n0 packets dropped by kernel\n",
+    "reply_capture": "1795533947.876349 IP (tos 0x0, ttl 63, id 0, offset 0, flags [DF], proto TCP (6), length 60)\n    192.168.120.2.18686 > 192.168.110.2.18685: Flags [S.], seq 1554330294, ack 423864311, win 65160, options [mss 1460,sackOK,TS val 3605445122 ecr 2616846199,nop,wscale 7], length 0\n1795533947.877104 IP (tos 0x0, ttl 63, id 31682, offset 0, flags [DF], proto TCP (6), length 52)\n    192.168.120.2.18686 > 192.168.110.2.18685: Flags [.], ack 33, win 509, options [nop,nop,TS val 3605445123 ecr 2616846200], length 0\n1795533947.877240 IP (tos 0x0, ttl 63, id 31683, offset 0, flags [DF], proto TCP (6), length 102)\n    192.168.120.2.18686 > 192.168.110.2.18685: Flags [P.], seq 1:51, ack 34, win 509, options [nop,nop,TS val 3605445123 ecr 2616846200], length 50\n1795533947.877247 IP (tos 0x0, ttl 63, id 31684, offset 0, flags [DF], proto TCP (6), length 52)\n    192.168.120.2.18686 > 192.168.110.2.18685: Flags [F.], seq 51, ack 34, win 509, options [nop,nop,TS val 3605445123 ecr 2616846200], length 0\n\ntcpdump: listening on eth3.110, link-type EN10MB (Ethernet), snapshot length 128 bytes\n4 packets captured\n4 packets received by filter\n0 packets dropped by kernel\n",
+    "verified_application": {
+      "initiator": {
+        "peer": [
+          "192.168.120.2",
+          18686
+        ],
+        "request_bytes": 32,
+        "received_bytes": 50,
+        "observed_server_eof": true,
+        "time_ns": 1795533948255313003
+      },
+      "responder": {
+        "peer": [
+          "192.168.110.2",
+          18685
+        ],
+        "received_bytes": 32,
+        "reply_bytes": 50,
+        "observed_client_eof": true,
+        "time_ns": 1795533948254926991
+      }
+    }
+  }
+}

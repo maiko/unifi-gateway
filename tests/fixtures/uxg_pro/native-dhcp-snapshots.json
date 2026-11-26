@@ -1,0 +1,93 @@
+{
+  "network_build": "11.0.104-37279-1",
+  "scope": "Interface and DHCP excerpts from native VLAN 110 captures with documentation addresses and redacted revisions",
+  "versions": {
+    "firewall/filter": 4,
+    "firewall/mangle": 6,
+    "firewall/sets": 1,
+    "firewall/settings": 1,
+    "interfaces": 8,
+    "services/idsIps": 8,
+    "services/messageBroker": 3
+  },
+  "managed_interface": {
+    "identification": {"id": "br110", "type": "bridge"},
+    "status": {"enabled": true, "comment": "LAN"},
+    "addresses": [{"type": "static", "cidr": "192.0.2.1/24", "version": "v4"}],
+    "bridge": {"interfaces": [{"id": "eth1.110"}, {"id": "eth3.110"}], "id": 110}
+  },
+  "default_server": {
+    "enabled": true,
+    "interfaces": [{"id": "br0"}],
+    "name": "net_Default_br0_203-0-113-0-24",
+    "leaseTime": 86400,
+    "ipVersion": "v4",
+    "rangeStart": "203.0.113.6",
+    "staticLeases": [{"id": "02:00:00:00:00:01", "addresses": ["203.0.113.20"]}],
+    "dnsServers": ["203.0.113.1"],
+    "gatewayAddress": "203.0.113.1",
+    "domain": "localdomain",
+    "rangeStop": "203.0.113.254",
+    "ipv4Netmask": 24
+  },
+  "ntp_options": {
+    "one": [{"optionNumber": 42, "value": "192.0.2.2"}],
+    "two": [{"optionNumber": 42, "value": "192.0.2.2,198.51.100.2"}]
+  },
+  "managed_option_excerpts": {
+    "domain-host": {
+      "domain": "uxg-lab.test",
+      "options": [{"optionNumber": 66, "value": "boot.edge-lab.test"}]
+    },
+    "domain-ip-ntp": {
+      "domain": "uxg-lab.test",
+      "options": [
+        {"optionNumber": 42, "value": "192.0.2.2,198.51.100.2"},
+        {"optionNumber": 66, "value": "198.51.100.2"}
+      ]
+    },
+    "network-boot": {
+      "dhcpBoot": {"filename": "uxg-pro-fixture.bin", "serverIP": "198.51.100.2"}
+    }
+  },
+  "managed_servers": {
+    "create": {
+      "enabled": true,
+      "interfaces": [{"id": "br110"}],
+      "name": "net_VyOS_Lab_VLAN_110_br110_192-0-2-0-24",
+      "leaseTime": 3600,
+      "ipVersion": "v4",
+      "rangeStart": "192.0.2.100",
+      "dnsServers": ["192.0.2.1"],
+      "gatewayAddress": "192.0.2.1",
+      "rangeStop": "192.0.2.150",
+      "ipv4Netmask": 24
+    },
+    "edit": {
+      "enabled": true,
+      "interfaces": [{"id": "br110"}],
+      "name": "net_VyOS_Lab_VLAN_110_br110_192-0-2-0-24",
+      "leaseTime": 7200,
+      "ipVersion": "v4",
+      "rangeStart": "192.0.2.101",
+      "dnsServers": ["198.51.100.2"],
+      "gatewayAddress": "192.0.2.1",
+      "rangeStop": "192.0.2.151",
+      "ipv4Netmask": 24
+    },
+    "reservation": {
+      "enabled": true,
+      "interfaces": [{"id": "br110"}],
+      "name": "net_VyOS_Lab_VLAN_110_br110_192-0-2-0-24",
+      "leaseTime": 7200,
+      "ipVersion": "v4",
+      "rangeStart": "192.0.2.101",
+      "staticLeases": [{"id": "02:00:00:00:00:42", "addresses": ["192.0.2.42"]}],
+      "dnsServers": ["198.51.100.2"],
+      "gatewayAddress": "192.0.2.1",
+      "rangeStop": "192.0.2.151",
+      "ipv4Netmask": 24
+    },
+    "delete": null
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "envelope": {
+    "version": 48,
+    "versionFormat": "v2",
+    "versionDetail": {
+      "firewall/filter": 4,
+      "firewall/mangle": 6,
+      "firewall/nat": 7,
+      "firewall/sets": 1,
+      "firewall/settings": 1,
+      "interfaces": 8,
+      "routes/ospf": 2,
+      "routes/ospf/areas": 2,
+      "routes/ospf/interfaces": 2,
+      "services/dnsForwarder": 4,
+      "services/idsIps": 8,
+      "vpn/wireguard/servers": 6
+    },
+    "interfaces": [
+      {
+        "identification": {
+          "id": "eth0",
+          "type": "ethernet"
+        },
+        "addresses": [
+          {
+            "type": "static",
+            "cidr": "198.18.210.1/30",
+            "version": "v4"
+          }
+        ]
+      },
+      {
+        "identification": {
+          "id": "br120",
+          "type": "bridge"
+        },
+        "addresses": [
+          {
+            "type": "static",
+            "cidr": "192.168.120.1/24",
+            "version": "v4"
+          }
+        ],
+        "bridge": {
+          "interfaces": [
+            {
+              "id": "eth1.120"
+            },
+            {
+              "id": "eth2.120"
+            },
+            {
+              "id": "eth3.120"
+            }
+          ],
+          "id": 120
+        }
+      }
+    ]
+  },
+  "entries": {
+    "off": null,
+    "create": [
+      {
+        "enabled": true,
+        "type": "tunnel",
+        "ikeVersion": "v2",
+        "ikeCiphers": [
+          {
+            "encryption": "aes256",
+            "hash": "sha256",
+            "dhGroup": 14
+          }
+        ],
+        "espCiphers": [
+          {
+            "encryption": "aes256",
+            "hash": "sha256",
+            "dhGroup": 14
+          }
+        ],
+        "espLifetime": 3600,
+        "ikeLifetime": 28800,
+        "dpdAction": "restart",
+        "fragmentation": "yes",
+        "aggressiveMode": false,
+        "id": "8e9efae0-4d65-403a-a7e8-d231b137487f",
+        "remoteSubnets": [
+          "198.19.210.240/32"
+        ],
+        "localSubnets": [
+          "192.168.120.2/32"
+        ],
+        "localAddress": {
+          "source": "static",
+          "address": "198.18.210.1"
+        },
+        "preSharedKey": "0123456789abcdef0123456789abcdef0123456789abcdef",
+        "startupAction": "start",
+        "remotePeer": "198.18.210.2",
+        "dpdDelay": 30,
+        "dpdTimeout": 120
+      }
+    ],
+    "edit": [
+      {
+        "enabled": true,
+        "type": "tunnel",
+        "ikeVersion": "v2",
+        "ikeCiphers": [
+          {
+            "encryption": "aes256",
+            "hash": "sha256",
+            "dhGroup": 14
+          }
+        ],
+        "espCiphers": [
+          {
+            "encryption": "aes256",
+            "hash": "sha256",
+            "dhGroup": 14
+          }
+        ],
+        "espLifetime": 4200,
+        "ikeLifetime": 28800,
+        "dpdAction": "restart",
+        "fragmentation": "yes",
+        "aggressiveMode": false,
+        "id": "8e9efae0-4d65-403a-a7e8-d231b137487f",
+        "remoteSubnets": [
+          "198.19.210.240/32"
+        ],
+        "localSubnets": [
+          "192.168.120.2/32"
+        ],
+        "localAddress": {
+          "source": "static",
+          "address": "198.18.210.1"
+        },
+        "preSharedKey": "0123456789abcdef0123456789abcdef0123456789abcdef",
+        "startupAction": "start",
+        "remotePeer": "198.18.210.2",
+        "dpdDelay": 30,
+        "dpdTimeout": 120
+      }
+    ],
+    "delete": null
+  }
+}

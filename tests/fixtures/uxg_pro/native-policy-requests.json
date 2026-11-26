@@ -1,0 +1,102 @@
+{
+  "network_build": "11.0.104-37279-1",
+  "scope": "Requests emitted by the native firewall editor. The gateway provisioning payload did not contain the rule.",
+  "create": {
+    "method": "POST",
+    "status": 201,
+    "body": {
+      "name": "Lab UXG VyOS TCP deny",
+      "description": "",
+      "enabled": true,
+      "action": "BLOCK",
+      "create_allow_respond": false,
+      "ip_version": "IPV4",
+      "logging": true,
+      "report_flow": false,
+      "protocol": "tcp",
+      "match_opposite_protocol": false,
+      "connection_state_type": "ALL",
+      "match_ip_sec": false,
+      "schedule": {
+        "mode": "ALWAYS"
+      },
+      "source": {
+        "zone_id": "11111111-1111-4111-8111-000000000001",
+        "match_mac": false,
+        "port_matching_type": "ANY",
+        "matching_target": "IP",
+        "matching_target_type": "SPECIFIC",
+        "ips": [
+          "192.0.2.0/24"
+        ],
+        "match_opposite_ips": false
+      },
+      "destination": {
+        "zone_id": "11111111-1111-4111-8111-000000000001",
+        "port_matching_type": "SPECIFIC",
+        "port": "8443",
+        "match_opposite_ports": false,
+        "matching_target": "IP",
+        "matching_target_type": "SPECIFIC",
+        "ips": [
+          "198.51.100.0/24"
+        ],
+        "match_opposite_ips": false
+      }
+    }
+  },
+  "edit": {
+    "method": "PUT",
+    "status": 200,
+    "body": {
+      "_id": "11111111-1111-4111-8111-000000000002",
+      "name": "Lab UXG VyOS TCP deny",
+      "index": 10000,
+      "description": "",
+      "enabled": true,
+      "action": "BLOCK",
+      "create_allow_respond": false,
+      "ip_version": "IPV4",
+      "logging": true,
+      "report_flow": false,
+      "protocol": "tcp",
+      "match_opposite_protocol": false,
+      "connection_state_type": "ALL",
+      "match_ip_sec": false,
+      "schedule": {
+        "mode": "ALWAYS"
+      },
+      "source": {
+        "zone_id": "11111111-1111-4111-8111-000000000001",
+        "match_mac": false,
+        "port_matching_type": "ANY",
+        "matching_target": "IP",
+        "matching_target_type": "SPECIFIC",
+        "ips": [
+          "192.0.2.0/24"
+        ],
+        "match_opposite_ips": false
+      },
+      "destination": {
+        "zone_id": "11111111-1111-4111-8111-000000000001",
+        "port_matching_type": "SPECIFIC",
+        "port": "8444",
+        "match_opposite_ports": false,
+        "matching_target": "IP",
+        "matching_target_type": "SPECIFIC",
+        "ips": [
+          "198.51.100.0/24"
+        ],
+        "match_opposite_ips": false
+      }
+    }
+  },
+  "delete": {
+    "method": "POST",
+    "endpoint": "batch-delete",
+    "status": 204,
+    "body": [
+      "11111111-1111-4111-8111-000000000002"
+    ]
+  }
+}

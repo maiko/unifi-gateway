@@ -1,0 +1,590 @@
+{
+  "baseline": {
+    "udapi": {
+      "version": 48,
+      "versionFormat": "v2",
+      "versionDetail": {
+        "firewall/filter": 4,
+        "firewall/mangle": 6,
+        "firewall/nat": 7,
+        "firewall/sets": 1,
+        "firewall/settings": 1,
+        "interfaces": 8,
+        "routes/ospf": 2,
+        "routes/ospf/areas": 2,
+        "routes/ospf/interfaces": 2,
+        "services/dnsForwarder": 4,
+        "vpn/wireguard/servers": 6
+      },
+      "interfaces": [
+        {
+          "identification": {
+            "id": "eth1",
+            "type": "ethernet"
+          },
+          "status": {
+            "enabled": true
+          }
+        },
+        {
+          "identification": {
+            "id": "eth1.120",
+            "type": "vlan"
+          },
+          "status": {
+            "enabled": true
+          },
+          "vlan": {
+            "id": 120,
+            "interface": {
+              "id": "eth1"
+            }
+          }
+        },
+        {
+          "identification": {
+            "id": "eth2",
+            "type": "ethernet"
+          },
+          "status": {
+            "enabled": true
+          }
+        },
+        {
+          "identification": {
+            "id": "eth2.120",
+            "type": "vlan"
+          },
+          "status": {
+            "enabled": true
+          },
+          "vlan": {
+            "id": 120,
+            "interface": {
+              "id": "eth2"
+            }
+          }
+        },
+        {
+          "identification": {
+            "id": "eth3",
+            "type": "ethernet"
+          },
+          "status": {
+            "enabled": true
+          }
+        },
+        {
+          "identification": {
+            "id": "eth3.120",
+            "type": "vlan"
+          },
+          "status": {
+            "enabled": true
+          },
+          "vlan": {
+            "id": 120,
+            "interface": {
+              "id": "eth3"
+            }
+          }
+        },
+        {
+          "identification": {
+            "id": "br120",
+            "type": "bridge"
+          },
+          "status": {
+            "enabled": true,
+            "comment": "LAN"
+          },
+          "addresses": [
+            {
+              "type": "static",
+              "cidr": "192.0.2.1/24",
+              "version": "v4"
+            }
+          ],
+          "bridge": {
+            "interfaces": [
+              {
+                "id": "eth1.120"
+              },
+              {
+                "id": "eth2.120"
+              },
+              {
+                "id": "eth3.120"
+              }
+            ],
+            "id": 120
+          }
+        }
+      ]
+    }
+  },
+  "create": {
+    "udapi": {
+      "version": 48,
+      "versionFormat": "v2",
+      "versionDetail": {
+        "firewall/filter": 4,
+        "firewall/mangle": 6,
+        "firewall/nat": 7,
+        "firewall/sets": 1,
+        "firewall/settings": 1,
+        "interfaces": 8,
+        "routes/ospf": 2,
+        "routes/ospf/areas": 2,
+        "routes/ospf/interfaces": 2,
+        "services/dnsForwarder": 4,
+        "vpn/wireguard/servers": 6
+      },
+      "routes/ospf": {
+        "enabled": true,
+        "routerID": "198.51.100.1",
+        "redistributeStatic": {
+          "enabled": false,
+          "metric": 10,
+          "metricType": "type1"
+        },
+        "redistributeConnected": {
+          "enabled": false,
+          "metric": 10,
+          "metricType": "type1"
+        },
+        "redistributeBGP": {
+          "enabled": false,
+          "metric": 10,
+          "metricType": "type2"
+        },
+        "announceDefaultRoute": false,
+        "passiveInterfaces": false
+      },
+      "routes/ospf/areas": [
+        {
+          "areaID": "0.0.0.0",
+          "areaType": "normal",
+          "authentication": "off",
+          "networks": [
+            {
+              "source": "static",
+              "address": "192.0.2.0/24"
+            }
+          ]
+        }
+      ],
+      "routes/ospf/interfaces": [
+        {
+          "id": "br120",
+          "cost": 1,
+          "authentication": {
+            "authType": "off"
+          },
+          "helloInterval": 10,
+          "deadInterval": 40,
+          "passiveInterface": false
+        }
+      ],
+      "interfaces": [
+        {
+          "identification": {
+            "id": "eth1",
+            "type": "ethernet"
+          },
+          "status": {
+            "enabled": true
+          }
+        },
+        {
+          "identification": {
+            "id": "eth1.120",
+            "type": "vlan"
+          },
+          "status": {
+            "enabled": true
+          },
+          "vlan": {
+            "id": 120,
+            "interface": {
+              "id": "eth1"
+            }
+          }
+        },
+        {
+          "identification": {
+            "id": "eth2",
+            "type": "ethernet"
+          },
+          "status": {
+            "enabled": true
+          }
+        },
+        {
+          "identification": {
+            "id": "eth2.120",
+            "type": "vlan"
+          },
+          "status": {
+            "enabled": true
+          },
+          "vlan": {
+            "id": 120,
+            "interface": {
+              "id": "eth2"
+            }
+          }
+        },
+        {
+          "identification": {
+            "id": "eth3",
+            "type": "ethernet"
+          },
+          "status": {
+            "enabled": true
+          }
+        },
+        {
+          "identification": {
+            "id": "eth3.120",
+            "type": "vlan"
+          },
+          "status": {
+            "enabled": true
+          },
+          "vlan": {
+            "id": 120,
+            "interface": {
+              "id": "eth3"
+            }
+          }
+        },
+        {
+          "identification": {
+            "id": "br120",
+            "type": "bridge"
+          },
+          "status": {
+            "enabled": true,
+            "comment": "LAN"
+          },
+          "addresses": [
+            {
+              "type": "static",
+              "cidr": "192.0.2.1/24",
+              "version": "v4"
+            }
+          ],
+          "bridge": {
+            "interfaces": [
+              {
+                "id": "eth1.120"
+              },
+              {
+                "id": "eth2.120"
+              },
+              {
+                "id": "eth3.120"
+              }
+            ],
+            "id": 120
+          }
+        }
+      ]
+    }
+  },
+  "edit": {
+    "udapi": {
+      "version": 48,
+      "versionFormat": "v2",
+      "versionDetail": {
+        "firewall/filter": 4,
+        "firewall/mangle": 6,
+        "firewall/nat": 7,
+        "firewall/sets": 1,
+        "firewall/settings": 1,
+        "interfaces": 8,
+        "routes/ospf": 2,
+        "routes/ospf/areas": 2,
+        "routes/ospf/interfaces": 2,
+        "services/dnsForwarder": 4,
+        "vpn/wireguard/servers": 6
+      },
+      "routes/ospf": {
+        "enabled": true,
+        "routerID": "198.51.100.1",
+        "redistributeStatic": {
+          "enabled": false,
+          "metric": 10,
+          "metricType": "type1"
+        },
+        "redistributeConnected": {
+          "enabled": false,
+          "metric": 10,
+          "metricType": "type1"
+        },
+        "redistributeBGP": {
+          "enabled": false,
+          "metric": 10,
+          "metricType": "type2"
+        },
+        "announceDefaultRoute": false,
+        "passiveInterfaces": false
+      },
+      "routes/ospf/areas": [
+        {
+          "areaID": "0.0.0.0",
+          "areaType": "normal",
+          "authentication": "off",
+          "networks": [
+            {
+              "source": "static",
+              "address": "192.0.2.0/24"
+            }
+          ]
+        }
+      ],
+      "routes/ospf/interfaces": [
+        {
+          "id": "br120",
+          "cost": 23,
+          "authentication": {
+            "authType": "off"
+          },
+          "helloInterval": 10,
+          "deadInterval": 40,
+          "passiveInterface": false
+        }
+      ],
+      "interfaces": [
+        {
+          "identification": {
+            "id": "eth1",
+            "type": "ethernet"
+          },
+          "status": {
+            "enabled": true
+          }
+        },
+        {
+          "identification": {
+            "id": "eth1.120",
+            "type": "vlan"
+          },
+          "status": {
+            "enabled": true
+          },
+          "vlan": {
+            "id": 120,
+            "interface": {
+              "id": "eth1"
+            }
+          }
+        },
+        {
+          "identification": {
+            "id": "eth2",
+            "type": "ethernet"
+          },
+          "status": {
+            "enabled": true
+          }
+        },
+        {
+          "identification": {
+            "id": "eth2.120",
+            "type": "vlan"
+          },
+          "status": {
+            "enabled": true
+          },
+          "vlan": {
+            "id": 120,
+            "interface": {
+              "id": "eth2"
+            }
+          }
+        },
+        {
+          "identification": {
+            "id": "eth3",
+            "type": "ethernet"
+          },
+          "status": {
+            "enabled": true
+          }
+        },
+        {
+          "identification": {
+            "id": "eth3.120",
+            "type": "vlan"
+          },
+          "status": {
+            "enabled": true
+          },
+          "vlan": {
+            "id": 120,
+            "interface": {
+              "id": "eth3"
+            }
+          }
+        },
+        {
+          "identification": {
+            "id": "br120",
+            "type": "bridge"
+          },
+          "status": {
+            "enabled": true,
+            "comment": "LAN"
+          },
+          "addresses": [
+            {
+              "type": "static",
+              "cidr": "192.0.2.1/24",
+              "version": "v4"
+            }
+          ],
+          "bridge": {
+            "interfaces": [
+              {
+                "id": "eth1.120"
+              },
+              {
+                "id": "eth2.120"
+              },
+              {
+                "id": "eth3.120"
+              }
+            ],
+            "id": 120
+          }
+        }
+      ]
+    }
+  },
+  "delete": {
+    "udapi": {
+      "version": 48,
+      "versionFormat": "v2",
+      "versionDetail": {
+        "firewall/filter": 4,
+        "firewall/mangle": 6,
+        "firewall/nat": 7,
+        "firewall/sets": 1,
+        "firewall/settings": 1,
+        "interfaces": 8,
+        "routes/ospf": 2,
+        "routes/ospf/areas": 2,
+        "routes/ospf/interfaces": 2,
+        "services/dnsForwarder": 4,
+        "vpn/wireguard/servers": 6
+      },
+      "interfaces": [
+        {
+          "identification": {
+            "id": "eth1",
+            "type": "ethernet"
+          },
+          "status": {
+            "enabled": true
+          }
+        },
+        {
+          "identification": {
+            "id": "eth1.120",
+            "type": "vlan"
+          },
+          "status": {
+            "enabled": true
+          },
+          "vlan": {
+            "id": 120,
+            "interface": {
+              "id": "eth1"
+            }
+          }
+        },
+        {
+          "identification": {
+            "id": "eth2",
+            "type": "ethernet"
+          },
+          "status": {
+            "enabled": true
+          }
+        },
+        {
+          "identification": {
+            "id": "eth2.120",
+            "type": "vlan"
+          },
+          "status": {
+            "enabled": true
+          },
+          "vlan": {
+            "id": 120,
+            "interface": {
+              "id": "eth2"
+            }
+          }
+        },
+        {
+          "identification": {
+            "id": "eth3",
+            "type": "ethernet"
+          },
+          "status": {
+            "enabled": true
+          }
+        },
+        {
+          "identification": {
+            "id": "eth3.120",
+            "type": "vlan"
+          },
+          "status": {
+            "enabled": true
+          },
+          "vlan": {
+            "id": 120,
+            "interface": {
+              "id": "eth3"
+            }
+          }
+        },
+        {
+          "identification": {
+            "id": "br120",
+            "type": "bridge"
+          },
+          "status": {
+            "enabled": true,
+            "comment": "LAN"
+          },
+          "addresses": [
+            {
+              "type": "static",
+              "cidr": "192.0.2.1/24",
+              "version": "v4"
+            }
+          ],
+          "bridge": {
+            "interfaces": [
+              {
+                "id": "eth1.120"
+              },
+              {
+                "id": "eth2.120"
+              },
+              {
+                "id": "eth3.120"
+              }
+            ],
+            "id": 120
+          }
+        }
+      ]
+    }
+  }
+}

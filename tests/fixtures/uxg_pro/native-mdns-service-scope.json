@@ -1,0 +1,24 @@
+{
+  "off": {
+    "versionDetail": {"services/mdns": 2},
+    "services": {}
+  },
+  "specific": {
+    "versionDetail": {"services/mdns": 2},
+    "services": {
+      "mdns": {
+        "enabled": true,
+        "interfaces": [{"id": "br110"}, {"id": "br120"}],
+        "reflectFilter": [
+          "_companion-link._tcp.local",
+          "_airplay._tcp.local",
+          "_appletv-v2._tcp.local",
+          "_sleep-proxy._udp.local",
+          "_touch-remote._tcp.local",
+          "_raop._tcp.local",
+          "_uxgtest._tcp.local"
+        ]
+      }
+    }
+  }
+}

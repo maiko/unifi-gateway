@@ -1,0 +1,127 @@
+{
+  "verified_application": {
+    "initiator": {
+      "peer": [
+        "192.168.120.2",
+        18686
+      ],
+      "request_bytes": 32,
+      "received_bytes": 50,
+      "observed_server_eof": true,
+      "time_ns": 1795533948255313003
+    },
+    "responder": {
+      "peer": [
+        "192.168.110.2",
+        18685
+      ],
+      "received_bytes": 32,
+      "reply_bytes": 50,
+      "observed_client_eof": true,
+      "time_ns": 1795533948254926991
+    }
+  },
+  "tracking": {
+    "conntrack_flow_id": 3949867120,
+    "state": "TIME_WAIT",
+    "assured": true,
+    "kernel_start_ns": 1795533947875988169,
+    "kernel_expiry_ns": 1795533952877374043,
+    "first_egress_packet_ns": 1795533947875995000,
+    "last_egress_packet_ns": 1795533947877657000
+  },
+  "directions": {
+    "original": {
+      "tuple": [
+        "192.168.110.2",
+        18685,
+        "192.168.120.2",
+        18686,
+        6
+      ],
+      "egress": "eth3.120",
+      "conntrack_packets": 6,
+      "conntrack_l3_bytes": 352,
+      "captured_packets": 6,
+      "captured_l3_bytes": 352,
+      "packet_headers": [
+        {
+          "unix_ns": 1795533947875995000,
+          "l3_bytes": 60,
+          "flags": "S",
+          "tcp_payload_bytes": 0
+        },
+        {
+          "unix_ns": 1795533947876723000,
+          "l3_bytes": 52,
+          "flags": ".",
+          "tcp_payload_bytes": 0
+        },
+        {
+          "unix_ns": 1795533947876815000,
+          "l3_bytes": 84,
+          "flags": "P.",
+          "tcp_payload_bytes": 32
+        },
+        {
+          "unix_ns": 1795533947876823000,
+          "l3_bytes": 52,
+          "flags": "F.",
+          "tcp_payload_bytes": 0
+        },
+        {
+          "unix_ns": 1795533947877550000,
+          "l3_bytes": 52,
+          "flags": ".",
+          "tcp_payload_bytes": 0
+        },
+        {
+          "unix_ns": 1795533947877657000,
+          "l3_bytes": 52,
+          "flags": ".",
+          "tcp_payload_bytes": 0
+        }
+      ]
+    },
+    "reply": {
+      "tuple": [
+        "192.168.120.2",
+        18686,
+        "192.168.110.2",
+        18685,
+        6
+      ],
+      "egress": "eth3.110",
+      "conntrack_packets": 4,
+      "conntrack_l3_bytes": 266,
+      "captured_packets": 4,
+      "captured_l3_bytes": 266,
+      "packet_headers": [
+        {
+          "unix_ns": 1795533947876349000,
+          "l3_bytes": 60,
+          "flags": "S.",
+          "tcp_payload_bytes": 0
+        },
+        {
+          "unix_ns": 1795533947877104000,
+          "l3_bytes": 52,
+          "flags": ".",
+          "tcp_payload_bytes": 0
+        },
+        {
+          "unix_ns": 1795533947877240000,
+          "l3_bytes": 102,
+          "flags": "P.",
+          "tcp_payload_bytes": 50
+        },
+        {
+          "unix_ns": 1795533947877247000,
+          "l3_bytes": 52,
+          "flags": "F.",
+          "tcp_payload_bytes": 0
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,83 @@
+{
+    "udapi": {
+        "version": 48,
+        "versionFormat": "v2",
+        "versionDetail": {
+            "firewall/filter": 4,
+            "firewall/mangle": 6,
+            "firewall/sets": 1,
+            "firewall/settings": 1,
+            "interfaces": 8
+        },
+        "firewall/filter": [
+            {
+                "config": {
+                    "name": "LAN_LAN",
+                    "logDefault": false
+                },
+                "rules": [
+                    {
+                        "id": 10000,
+                        "target": "DROP",
+                        "description": "VyOS Lab IPv6 TCP deny",
+                        "log": true,
+                        "protocol": "tcp",
+                        "source": {
+                            "sets": [
+                                "policy_src_ip_1"
+                            ]
+                        },
+                        "destination": {
+                            "sets": [
+                                "policy_dst_ip_1",
+                                "policy_dst_port_1"
+                            ]
+                        },
+                        "connectionState": [],
+                        "ipVersion": "v6only"
+                    },
+                    {
+                        "id": 2147483647,
+                        "target": "ACCEPT",
+                        "description": "[LAN_LAN]Allow All Traffic",
+                        "log": false,
+                        "ipVersion": "both",
+                        "originId": "55555555-5555-4555-9555-000000000042"
+                    }
+                ]
+            }
+        ],
+        "firewall/sets": [
+            {
+                "identification": {
+                    "name": "policy_src_ip_1",
+                    "type": "address"
+                },
+                "description": "IP addresses and ranges related to policy(short_id: 1) ip source",
+                "entries": [
+                    "fd42:7891:110::/64"
+                ]
+            },
+            {
+                "identification": {
+                    "name": "policy_dst_ip_1",
+                    "type": "address"
+                },
+                "description": "IP addresses and ranges related to policy(short_id: 1) ip destination",
+                "entries": [
+                    "fd42:7891:120::/64"
+                ]
+            },
+            {
+                "identification": {
+                    "name": "policy_dst_port_1",
+                    "type": "port"
+                },
+                "description": "Ports related to policy(short_id: 1)",
+                "entries": [
+                    "18443"
+                ]
+            }
+        ]
+    }
+}

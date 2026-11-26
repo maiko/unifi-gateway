@@ -1,0 +1,204 @@
+{
+  "strict": {
+    "udapi": {
+      "version": 48,
+      "versionFormat": "v2",
+      "versionDetail": {
+        "firewall/pbr": 12
+      },
+      "firewall/sets": [
+        {
+          "identification": {
+            "name": "trafficroute_net4_1",
+            "type": "address"
+          },
+          "description": "Network addresses related to Traffic Route (short_id: 1)",
+          "entries": [
+            "192.168.110.0/24"
+          ]
+        },
+        {
+          "identification": {
+            "name": "trafficroute_net6_1",
+            "type": "address"
+          },
+          "description": "Network addresses related to Traffic Route (short_id: 1)"
+        },
+        {
+          "identification": {
+            "name": "trafficroute_ip_1",
+            "type": "address"
+          },
+          "description": "IP addresses and ranges related to Traffic Route (short_id: 1)",
+          "entries": [
+            "198.19.210.243"
+          ]
+        }
+      ],
+      "firewall/pbr": {
+        "rules": [
+          {
+            "id": 10001,
+            "enabled": true,
+            "negateInInterface": false,
+            "routingMode": {
+              "mode": "table",
+              "pbrTable": 201,
+              "strict": true
+            },
+            "source": {
+              "sets": [
+                "trafficroute_net4_1"
+              ]
+            },
+            "destination": {
+              "sets": [
+                "trafficroute_ip_1"
+              ]
+            },
+            "ipVersion": "v4only"
+          }
+        ]
+      }
+    }
+  },
+  "edit": {
+    "udapi": {
+      "version": 48,
+      "versionFormat": "v2",
+      "versionDetail": {
+        "firewall/pbr": 12
+      },
+      "firewall/sets": [
+        {
+          "identification": {
+            "name": "trafficroute_net4_1",
+            "type": "address"
+          },
+          "description": "Network addresses related to Traffic Route (short_id: 1)",
+          "entries": [
+            "192.168.110.0/24"
+          ]
+        },
+        {
+          "identification": {
+            "name": "trafficroute_net6_1",
+            "type": "address"
+          },
+          "description": "Network addresses related to Traffic Route (short_id: 1)"
+        },
+        {
+          "identification": {
+            "name": "trafficroute_ip_1",
+            "type": "address"
+          },
+          "description": "IP addresses and ranges related to Traffic Route (short_id: 1)",
+          "entries": [
+            "198.19.210.244"
+          ]
+        }
+      ],
+      "firewall/pbr": {
+        "rules": [
+          {
+            "id": 10001,
+            "enabled": true,
+            "negateInInterface": false,
+            "routingMode": {
+              "mode": "table",
+              "pbrTable": 201,
+              "strict": true
+            },
+            "source": {
+              "sets": [
+                "trafficroute_net4_1"
+              ]
+            },
+            "destination": {
+              "sets": [
+                "trafficroute_ip_1"
+              ]
+            },
+            "ipVersion": "v4only"
+          }
+        ]
+      }
+    }
+  },
+  "withdrawn": {
+    "udapi": {
+      "version": 48,
+      "versionFormat": "v2",
+      "versionDetail": {
+        "firewall/pbr": 12
+      },
+      "firewall/sets": [],
+      "firewall/pbr": {
+        "rules": []
+      }
+    }
+  },
+  "without-kill-switch": {
+    "udapi": {
+      "version": 48,
+      "versionFormat": "v2",
+      "versionDetail": {
+        "firewall/pbr": 12
+      },
+      "firewall/sets": [
+        {
+          "identification": {
+            "name": "trafficroute_net4_1",
+            "type": "address"
+          },
+          "description": "Network addresses related to Traffic Route (short_id: 1)",
+          "entries": [
+            "192.168.110.0/24"
+          ]
+        },
+        {
+          "identification": {
+            "name": "trafficroute_net6_1",
+            "type": "address"
+          },
+          "description": "Network addresses related to Traffic Route (short_id: 1)"
+        },
+        {
+          "identification": {
+            "name": "trafficroute_ip_1",
+            "type": "address"
+          },
+          "description": "IP addresses and ranges related to Traffic Route (short_id: 1)",
+          "entries": [
+            "198.19.210.243"
+          ]
+        }
+      ],
+      "firewall/pbr": {
+        "rules": [
+          {
+            "id": 10001,
+            "enabled": true,
+            "negateInInterface": false,
+            "routingMode": {
+              "mode": "table",
+              "pbrTable": 201,
+              "strict": false
+            },
+            "source": {
+              "sets": [
+                "trafficroute_net4_1"
+              ]
+            },
+            "destination": {
+              "sets": [
+                "trafficroute_ip_1"
+              ]
+            },
+            "ipVersion": "v4only"
+          }
+        ]
+      }
+    }
+  }
+}

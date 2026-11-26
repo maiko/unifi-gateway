@@ -1,0 +1,111 @@
+#!/bin/vbash
+# Check a completed commit or the saved state through stock VyOS commands.
+
+export LC_ALL=C
+
+refuse() {
+    printf 'VyOS restart preflight: %s\n' "$1" >&2
+    builtin exit 1
+}
+
+check_rollback() {
+    local unit state
+    for unit in commit-confirm.timer commit-confirm.service; do
+        state=$(/usr/bin/systemctl show --property=LoadState --property=ActiveState --property=Job "$unit") ||
+            refuse "could not read $unit"
+        if [[ $revision == staged && $unit == commit-confirm.timer ]]; then
+            [[ $state == $'LoadState=loaded\nActiveState=active\nJob=' ]] ||
+                refuse 'no active commit-confirm timer for the staged fingerprint'
+            continue
+        fi
+        case $state in
+            $'LoadState=loaded\nActiveState=inactive\nJob='|$'LoadState=not-found\nActiveState=inactive\nJob=') ;;
+            *) refuse "$unit has pending work or an unknown state" ;;
+        esac
+    done
+}
+
+check_reboot_action() {
+    local target command
+    target=$(/usr/bin/systemctl show --property=Unit --value commit-confirm.timer) ||
+        refuse 'could not read the commit-confirm timer target'
+    [[ $target == commit-confirm.service ]] || refuse 'unexpected commit-confirm timer target'
+    command=$(/usr/bin/busctl --system get-property org.freedesktop.systemd1 \
+        /org/freedesktop/systemd1/unit/commit_2dconfirm_2eservice org.freedesktop.systemd1.Service ExecStart) ||
+        refuse 'could not read the armed commit-confirm executable'
+    local reboot_command='^a\(sasbttttuii\) 1 "/usr/bin/sg" 3 "(sg|/usr/bin/sg)" "vyattacfg" "/usr/bin/config-mgmt revert" false( [0-9]+){7}$'
+    [[ $command =~ $reboot_command ]] || refuse 'the armed commit-confirm service does not match stock reboot rollback'
+}
+
+configuration_digest() {
+    local output
+    output=$(set -o pipefail; show | /usr/bin/sha256sum) ||
+        refuse 'could not fingerprint the current configuration'
+    [[ $output =~ ^([0-9a-f]{64})[[:space:]]+-$ && ${BASH_REMATCH[1]} != e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 ]] ||
+        refuse 'invalid or empty configuration fingerprint'
+    digest=${BASH_REMATCH[1]}
+}
+
+[[ $# == 0 ]] || refuse 'expected no arguments'
+[[ $(/usr/bin/id -gn) == vyattacfg ]] || refuse 'run this script with the vyattacfg primary group'
+request=${SSH_ORIGINAL_COMMAND:-}
+case $request in
+    ''|'/bin/false'|'/bin/false uxg-commit-saved')
+        revision=saved
+        expected='No changes between working and saved configurations.'
+        [[ -s /config/config.boot ]] || refuse 'the boot configuration is missing or empty'
+        ;;
+    '/bin/false uxg-commit-proof')
+        revision=0
+        expected='No changes between working and revision 0 configurations.'
+        ;;
+    '/bin/false uxg-commit-snapshot') revision=staged ;;
+    '/bin/false uxg-commit-snapshot-reboot') revision=staged ;;
+    *) refuse 'unexpected preflight request' ;;
+esac
+source /opt/vyatta/etc/functions/script-template || refuse 'could not load the VyOS command template'
+
+check_rollback
+if [[ $request == '/bin/false uxg-commit-snapshot-reboot' ]]; then
+    check_reboot_action
+fi
+configure || refuse 'could not open a configuration session'
+if [[ $revision == staged || $revision == 0 || $request == '/bin/false uxg-commit-saved' ]]; then
+    configuration_digest
+fi
+if [[ $revision != staged ]]; then
+    comparison=$(compare "$revision" 2>&1)
+    comparison_status=$?
+fi
+shutdown_status=$(run show reboot 2>&1)
+shutdown_status_code=$?
+# The VyOS template aliases exit to close the configuration session.
+exit || refuse 'could not close the configuration session'
+
+[[ $shutdown_status_code == 0 && $shutdown_status == 'Reboot or poweroff is not scheduled' ]] ||
+    refuse 'a shutdown is scheduled or could not be checked'
+if [[ $revision == staged ]]; then
+    check_rollback
+    if [[ $request == '/bin/false uxg-commit-snapshot-reboot' ]]; then
+        check_reboot_action
+        printf 'uxg-commit-staged_reboot %s\n' "$digest"
+    else
+        printf 'uxg-commit-staged %s\n' "$digest"
+    fi
+    builtin exit 0
+fi
+[[ $comparison_status == 0 && $comparison == "$expected" ]] ||
+    refuse 'running configuration differs from the requested reference or comparison failed'
+check_rollback
+if [[ $revision == 0 ]]; then
+    printf 'uxg-commit-completed %s\n' "$digest"
+    builtin exit 0
+fi
+read -r boot_id < /proc/sys/kernel/random/boot_id || refuse 'could not read the kernel boot ID'
+[[ $boot_id =~ ^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$ ]] ||
+    refuse 'the kernel returned an invalid boot ID'
+if [[ $request == '/bin/false uxg-commit-saved' ]]; then
+    printf 'uxg-commit-saved %s %s\n' "$boot_id" "$digest"
+else
+    printf '%s\n' "$boot_id"
+fi

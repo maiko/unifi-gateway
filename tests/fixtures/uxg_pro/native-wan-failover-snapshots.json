@@ -1,0 +1,386 @@
+{
+    "baseline": {
+        "udapi": {
+            "version": 48,
+            "versionFormat": "v2",
+            "versionDetail": {
+                "services/wanFailover": 11
+            },
+            "services": {
+                "wanFailover": {
+                    "enabled": true,
+                    "wanInterfaces": [
+                        {
+                            "interface": {
+                                "id": "eth0"
+                            },
+                            "routingTable": 201,
+                            "monitors": [
+                                {
+                                    "id": 1,
+                                    "interval": 3,
+                                    "timePeriod": 60,
+                                    "target": "ping.ui.com",
+                                    "alert": {
+                                        "lossThreshold": 50
+                                    }
+                                },
+                                {
+                                    "id": 2,
+                                    "interval": 10,
+                                    "timePeriod": 30,
+                                    "target": "1.1.1.1",
+                                    "alert": {
+                                        "latencyThreshold": 1500,
+                                        "lossThreshold": 100
+                                    },
+                                    "type": "dns",
+                                    "domain": "ui.com"
+                                },
+                                {
+                                    "id": 3,
+                                    "interval": 10,
+                                    "timePeriod": 30,
+                                    "target": "8.8.8.8",
+                                    "alert": {
+                                        "latencyThreshold": 1500,
+                                        "lossThreshold": 100
+                                    },
+                                    "type": "dns",
+                                    "domain": "ui.com"
+                                },
+                                {
+                                    "id": 4,
+                                    "interval": 60,
+                                    "timePeriod": 86400,
+                                    "target": "ping.ui.com"
+                                }
+                            ],
+                            "metric": 1,
+                            "weight": 50
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "two-wans": {
+        "udapi": {
+            "version": 48,
+            "versionFormat": "v2",
+            "versionDetail": {
+                "services/wanFailover": 11
+            },
+            "services": {
+                "wanFailover": {
+                    "enabled": true,
+                    "wanInterfaces": [
+                        {
+                            "interface": {
+                                "id": "eth2"
+                            },
+                            "routingTable": 202,
+                            "monitors": [
+                                {
+                                    "id": 1,
+                                    "interval": 3,
+                                    "timePeriod": 60,
+                                    "target": "ping.ui.com",
+                                    "alert": {
+                                        "lossThreshold": 50
+                                    }
+                                },
+                                {
+                                    "id": 2,
+                                    "interval": 10,
+                                    "timePeriod": 30,
+                                    "target": "1.1.1.1",
+                                    "alert": {
+                                        "latencyThreshold": 1500,
+                                        "lossThreshold": 100
+                                    },
+                                    "type": "dns",
+                                    "domain": "ui.com"
+                                },
+                                {
+                                    "id": 3,
+                                    "interval": 10,
+                                    "timePeriod": 30,
+                                    "target": "8.8.8.8",
+                                    "alert": {
+                                        "latencyThreshold": 1500,
+                                        "lossThreshold": 100
+                                    },
+                                    "type": "dns",
+                                    "domain": "ui.com"
+                                },
+                                {
+                                    "id": 4,
+                                    "interval": 60,
+                                    "timePeriod": 86400,
+                                    "target": "ping.ui.com"
+                                }
+                            ],
+                            "metric": 2,
+                            "weight": 50
+                        },
+                        {
+                            "interface": {
+                                "id": "eth0"
+                            },
+                            "routingTable": 201,
+                            "monitors": [
+                                {
+                                    "id": 5,
+                                    "interval": 3,
+                                    "timePeriod": 60,
+                                    "target": "ping.ui.com",
+                                    "alert": {
+                                        "lossThreshold": 50
+                                    }
+                                },
+                                {
+                                    "id": 6,
+                                    "interval": 10,
+                                    "timePeriod": 30,
+                                    "target": "1.1.1.1",
+                                    "alert": {
+                                        "latencyThreshold": 1500,
+                                        "lossThreshold": 100
+                                    },
+                                    "type": "dns",
+                                    "domain": "ui.com"
+                                },
+                                {
+                                    "id": 7,
+                                    "interval": 10,
+                                    "timePeriod": 30,
+                                    "target": "8.8.8.8",
+                                    "alert": {
+                                        "latencyThreshold": 1500,
+                                        "lossThreshold": 100
+                                    },
+                                    "type": "dns",
+                                    "domain": "ui.com"
+                                },
+                                {
+                                    "id": 8,
+                                    "interval": 60,
+                                    "timePeriod": 86400,
+                                    "target": "ping.ui.com"
+                                }
+                            ],
+                            "metric": 1,
+                            "weight": 50
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "monitors": {
+        "udapi": {
+            "version": 48,
+            "versionFormat": "v2",
+            "versionDetail": {
+                "services/wanFailover": 11
+            },
+            "services": {
+                "wanFailover": {
+                    "enabled": true,
+                    "wanInterfaces": [
+                        {
+                            "interface": {
+                                "id": "eth2"
+                            },
+                            "routingTable": 202,
+                            "monitors": [
+                                {
+                                    "id": 1,
+                                    "interval": 3,
+                                    "timePeriod": 7,
+                                    "target": "198.18.220.2",
+                                    "alert": {
+                                        "lossThreshold": 99
+                                    },
+                                    "type": "icmp"
+                                },
+                                {
+                                    "id": 2,
+                                    "interval": 60,
+                                    "timePeriod": 86400,
+                                    "target": "ping.ui.com"
+                                }
+                            ],
+                            "metric": 2,
+                            "monitorHealthThreshold": 1,
+                            "weight": 50
+                        },
+                        {
+                            "interface": {
+                                "id": "eth0"
+                            },
+                            "routingTable": 201,
+                            "monitors": [
+                                {
+                                    "id": 3,
+                                    "interval": 3,
+                                    "timePeriod": 7,
+                                    "target": "198.18.210.2",
+                                    "alert": {
+                                        "lossThreshold": 99
+                                    },
+                                    "type": "icmp"
+                                },
+                                {
+                                    "id": 4,
+                                    "interval": 60,
+                                    "timePeriod": 86400,
+                                    "target": "ping.ui.com"
+                                }
+                            ],
+                            "metric": 1,
+                            "monitorHealthThreshold": 1,
+                            "weight": 50
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "reversed": {
+        "udapi": {
+            "version": 48,
+            "versionFormat": "v2",
+            "versionDetail": {
+                "services/wanFailover": 11
+            },
+            "services": {
+                "wanFailover": {
+                    "enabled": true,
+                    "wanInterfaces": [
+                        {
+                            "interface": {
+                                "id": "eth2"
+                            },
+                            "routingTable": 202,
+                            "monitors": [
+                                {
+                                    "id": 1,
+                                    "interval": 3,
+                                    "timePeriod": 7,
+                                    "target": "198.18.220.2",
+                                    "alert": {
+                                        "lossThreshold": 99
+                                    },
+                                    "type": "icmp"
+                                },
+                                {
+                                    "id": 2,
+                                    "interval": 60,
+                                    "timePeriod": 86400,
+                                    "target": "ping.ui.com"
+                                }
+                            ],
+                            "metric": 1,
+                            "monitorHealthThreshold": 1,
+                            "weight": 50
+                        },
+                        {
+                            "interface": {
+                                "id": "eth0"
+                            },
+                            "routingTable": 201,
+                            "monitors": [
+                                {
+                                    "id": 3,
+                                    "interval": 3,
+                                    "timePeriod": 7,
+                                    "target": "198.18.210.2",
+                                    "alert": {
+                                        "lossThreshold": 99
+                                    },
+                                    "type": "icmp"
+                                },
+                                {
+                                    "id": 4,
+                                    "interval": 60,
+                                    "timePeriod": 86400,
+                                    "target": "ping.ui.com"
+                                }
+                            ],
+                            "metric": 2,
+                            "monitorHealthThreshold": 1,
+                            "weight": 50
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "restored": {
+        "udapi": {
+            "version": 48,
+            "versionFormat": "v2",
+            "versionDetail": {
+                "services/wanFailover": 11
+            },
+            "services": {
+                "wanFailover": {
+                    "enabled": true,
+                    "wanInterfaces": [
+                        {
+                            "interface": {
+                                "id": "eth0"
+                            },
+                            "routingTable": 201,
+                            "monitors": [
+                                {
+                                    "id": 1,
+                                    "interval": 3,
+                                    "timePeriod": 60,
+                                    "target": "ping.ui.com",
+                                    "alert": {
+                                        "lossThreshold": 50
+                                    }
+                                },
+                                {
+                                    "id": 2,
+                                    "interval": 10,
+                                    "timePeriod": 30,
+                                    "target": "1.1.1.1",
+                                    "alert": {
+                                        "latencyThreshold": 1500,
+                                        "lossThreshold": 100
+                                    },
+                                    "type": "dns",
+                                    "domain": "ui.com"
+                                },
+                                {
+                                    "id": 3,
+                                    "interval": 10,
+                                    "timePeriod": 30,
+                                    "target": "8.8.8.8",
+                                    "alert": {
+                                        "latencyThreshold": 1500,
+                                        "lossThreshold": 100
+                                    },
+                                    "type": "dns",
+                                    "domain": "ui.com"
+                                },
+                                {
+                                    "id": 4,
+                                    "interval": 60,
+                                    "timePeriod": 86400,
+                                    "target": "ping.ui.com"
+                                }
+                            ],
+                            "metric": 1,
+                            "weight": 50
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}
